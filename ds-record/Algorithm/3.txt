@@ -15,5 +15,12 @@ Step 12 :        J = J+1
 Step 13 :     I=I+1
 Step 14 :  If COUNT=0 then Print "Item not found"
 Step 15 :  Stop
-
-
+====================
+Output
+--------------------
+Enter the number of rows and columns: 2 3
+Enter 6 elements:
+1 2 3
+4 5 6
+Enter the item to find: 5
+Item found at [1, 1]
