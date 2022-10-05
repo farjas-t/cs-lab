@@ -55,7 +55,7 @@ void removeatspecific(int key)
 	while(current->data!=key)
 	{
 		if(current->next==NULL){
-			printf("\nthe given node is node found !!!!\n");
+			printf("\nthe given node is not found !\n");
 			exit(0);
 		}
 		temp=current;
