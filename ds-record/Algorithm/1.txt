@@ -10,3 +10,8 @@ Step 7  :  Repeat Steps 8 & 9 while I >= 1
 Step 8  :     Print content of (PTR+I) 
 Step 9  :     I=I-1
 Step 10:  Stop
+====================
+Output
+--------------------
+Enter a String: STRESSED
+The Reverse of the String is: DESSERTS 
