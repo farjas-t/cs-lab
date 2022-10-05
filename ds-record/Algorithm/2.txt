@@ -14,4 +14,9 @@ Step 11:         If j = a then FLAG=1 and Print "Pattern found at position", I+1
 Step 12:         I = I+1
 Step 13:  If FLAG=0 then Print "Pattern not found!"
 Step 14:  Stop
-
+====================
+Output
+--------------------
+Enter the string : ComputerScience
+Enter the pattern to find : Science
+Pattern found at position 9 
