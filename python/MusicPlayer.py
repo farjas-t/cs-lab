@@ -1,5 +1,7 @@
+from cgitb import text
 from logging import root
-import pygame
+import string
+from tkinter.font import BOLD
 from pygame import mixer
 from tkinter import *
 import os
@@ -7,30 +9,28 @@ def play():
     current=playlist.get(ACTIVE)
     print (current)
     mixer.music.load(current)
-    status.set("Playing")
     mixer.music.play()
 
 def pause():
-    status.set("Paused")
     mixer.music.pause()
 
 def resume():
-    status.set("Resuming")
     mixer.music.unpause()
 
 def stop():
-    status.set("Stopped")
     mixer.music.stop()
 
 root=Tk()
 root.title("Music Player")
-
+root.resizable(False, False)
+root.configure(bg='#262626')
 mixer.init()
-status=StringVar()
-status.set("Choosing")
 
-playlist=Listbox(root,selectmode=SINGLE,bg="White",fg="Black",font=('Poppins',15),width=60)
-playlist.pack(pady=50,padx=30)
+Head = Label(root, text=("♫ Music Player"),font=("Arial",30,BOLD),bg="#262626",fg="white")
+Head.pack(pady=20)
+
+playlist=Listbox(root,selectmode=SINGLE,bg="Black",fg="White",font=('Helvetica',15),width=60,borderwidth=25,highlightthickness=0)
+playlist.pack(padx=30,pady=30)
 
 os.chdir(r'.\Music')
 songs=os.listdir()
@@ -38,22 +38,22 @@ for s in songs:
     playlist.insert(END,s)
 
 frame=Frame(root)
-frame.pack()
+frame.pack(pady=20)
 
-playbtn=Button(frame,text="Play",command=play)
-playbtn.config(font=('Poppins',20),bg="Black",fg="White",padx=5)
-playbtn.pack(side=LEFT)
+playbtn=Button(frame,text="PLAY",command=play,highlightthickness=0,bd=0)
+playbtn.config(font=('Arial',20,BOLD),bg="#00a814",fg="White")
+playbtn.pack(side=LEFT,ipadx=12)
 
-pausebtn=Button(frame,text="Pause",command=pause)
-pausebtn.config(font=('Poppins',20),bg="Black",fg="White",padx=5)
-pausebtn.pack(side=LEFT)
+pausebtn=Button(frame,text="PAUSE",command=pause,highlightthickness=0,bd=0)
+pausebtn.config(font=('Arial',20,BOLD),bg="#ffae00",fg="White")
+pausebtn.pack(side=LEFT,ipadx=9)
 
-resumebtn=Button(frame,text="Resume",command=resume)
-resumebtn.config(font=('Poppins',20),bg="Black",fg="White",padx=5)
-resumebtn.pack(side=LEFT)
+resumebtn=Button(frame,text="RESUME",command=resume,highlightthickness=0,bd=0)
+resumebtn.config(font=('Arial',20,BOLD),bg="#007fcc",fg="White")
+resumebtn.pack(side=LEFT,ipadx=6)
 
-stopbtn=Button(frame,text="Stop",command=stop)
-stopbtn.config(font=('Poppins',20),bg="Black",fg="White",padx=5)
-stopbtn.pack(side=LEFT)
+stopbtn=Button(frame,text="STOP",command=stop,highlightthickness=0,bd=0)
+stopbtn.config(font=('Arial',20,BOLD),bg="#d90021",fg="White")
+stopbtn.pack(side=LEFT,ipadx=12)
 
 mainloop()
