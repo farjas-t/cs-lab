@@ -1,0 +1,83 @@
+
+
+Chose one from the below options...
+
+1.Push
+2.Pop
+3.Show
+4.Exit
+
+Enter your choice : 1
+Enter the value : 1
+Item pushed
+
+Chose one from the below options...
+
+1.Push
+2.Pop
+3.Show
+4.Exit
+
+Enter your choice : 1
+Enter the value : 2
+Item pushed
+
+Chose one from the below options...
+
+1.Push
+2.Pop
+3.Show
+4.Exit
+
+Enter your choice : 1
+Enter the value : 3
+Item pushed
+
+Chose one from the below options...
+
+1.Push
+2.Pop
+3.Show
+4.Exit
+
+Enter your choice : 3
+
+Printing Stack elements
+
+  3
+  2
+  1
+
+Chose one from the below options...
+
+1.Push
+2.Pop
+3.Show
+4.Exit
+
+Enter your choice : 2
+Item popped
+
+Chose one from the below options...
+
+1.Push
+2.Pop
+3.Show
+4.Exit
+
+Enter your choice : 3
+
+Printing Stack elements
+
+  2
+  1
+
+Chose one from the below options...
+
+1.Push
+2.Pop
+3.Show
+4.Exit
+
+Enter your choice : 4
+Exiting....
