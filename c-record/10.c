@@ -9,7 +9,9 @@ int main()
 	while(a>0)
 	{
 		d=a/b[i];
-		printf("Number of %d notes is %d\n",b[i],d);
+		if(d){
+			printf("Number of %d notes is %d\n",b[i],d);
+		}
 		n=n+d;
 		a=a%b[i];
 		i++;
