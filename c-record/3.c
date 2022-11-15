@@ -2,18 +2,15 @@
 #include <stdio.h>
 int main()
 {
-	int i, sp, r, k = 0;
+	int r,i,j;
 	printf("Enter the number of rows: ");
 	scanf("%d", &r);
-	for (i = 1; i <= r; ++i, k = 0)
+	for (i=1; i<=r; i++)
 	{
-		for (sp=1; sp<=r-i; ++sp)
+		for (j=0; j<r-i; j++)
 			printf("  ");
-		while (k != 2 * i - 1)
-		{
+		for (j=0; j!=2*i-1; j++)
 			printf("* ");
-			++k;
-		}
 		printf("\n");
 	}
 	return 0;
