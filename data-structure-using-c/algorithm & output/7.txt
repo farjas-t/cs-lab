@@ -1,0 +1,30 @@
+PROGRAM - 7
+------------
+Step 1   : Start
+Step 2   : Create a structure node which has two attributes data and next
+Step 3   : Declare pointers stnode, fnNode, tmp as node structures
+Step 4   : Print “Input the number of nodes :”
+Step 5   : Read n
+Step 6   : Allocate memory for structure node and assign it to stnode pointer
+Step 7   : If stnode = NULL then print “Memory can not be allocated” and goto step 22
+Step 8   : Print “Input data for node 1 :”
+Step 9   : Read num
+Step 10  : set stnode->val = num
+Step 11 : set stnode->next = NULL
+Step 12 : tmp = stnode
+Step 13 : set i=2, while i<=n, repeat steps 14 to 21
+Step 14 :   Allocate memory for structure node and assign it to fnNode pointer
+Step 15 :   If fnNode = NULL, Print “Memory can not be allocated” and goto step 22
+Step 16 :   Print “Input data for node ”, i “ : ”
+Step 17 : Read num
+Step 18 : fnNode->val = num
+Step 19 : fnNode->next = NULL
+Step 20 : tmp->next = fnNode
+Step 21 : tmp = tmp->next
+Step 22 : Print “Data entered in the list :”
+Step 23 : If stnode==NULL then Print “List is Empty” and goto step 28
+Step 24 : tmp = stnode
+Step 25 : while tmp!=NUL repeat steps 26,27
+Step 26 :   print “Data =”, temp->val
+Step 27 :   tmp = tmp->next
+Step 28 : Stop

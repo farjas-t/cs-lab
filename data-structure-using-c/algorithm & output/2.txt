@@ -1,0 +1,22 @@
+Program-2 
+-------------------
+Step 1  :  Start
+Step 2  :  Read string TEXT as base string and string PAT as pattern to find.
+Step 3  :  A = Length of PAT
+Step 4  :  B = Length of TEXT
+Step 5  :  I = 0, FLAG=0
+Step 6  :  While I <= B-A repeat steps 7 to 12 else goto step 13
+Step 7  :  J = 0
+Step 8  :     While J < A repeat steps 9 and 10
+Step 9  :         If TEXT[I+J] is not equal to PAT[J] then goto step 11
+Step 10:         J=J+1
+Step 11:         If j = a then FLAG=1 and Print "Pattern found at position", I+1
+Step 12:         I = I+1
+Step 13:  If FLAG=0 then Print "Pattern not found!"
+Step 14:  Stop
+====================
+Output
+--------------------
+Enter the string : ComputerScience
+Enter the pattern to find : Science
+Pattern found at position 9 

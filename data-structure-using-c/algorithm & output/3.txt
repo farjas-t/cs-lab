@@ -1,0 +1,26 @@
+Program-3
+-------------------
+Step 1   :  Start
+Step 2   :  Read R,C
+Step 3   :  Read Elements of Array ARR[R][C]
+Step 4   :  Read ITEM
+Step 5   :  I=0
+Step 6   :  While I<R repeat steps 7 to 13 else go to step 14
+Step 7   :     J=0
+Step 8   :     While J < C repeat steps 9 to 12 else goto step 13 
+Step 9   :        If ARR[I][J]=ITEM
+Step 10 :        Print "Item found at", I, J
+Step 11 :        COUNT = COUNT+1
+Step 12 :        J = J+1
+Step 13 :     I=I+1
+Step 14 :  If COUNT=0 then Print "Item not found"
+Step 15 :  Stop
+====================
+Output
+--------------------
+Enter the number of rows and columns: 2 3
+Enter 6 elements:
+1 2 3
+4 5 6
+Enter the item to find: 5
+Item found at [1, 1]
