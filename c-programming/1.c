@@ -12,7 +12,7 @@ int main()
 		r=r*10+d;
 		n/=10;
 	}
-	printf("Sumof digits = %d",s);
+	printf("Sum of digits = %d",s);
 	printf("\nReverse of the number = %d",r);
 	return 0;
 }

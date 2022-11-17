@@ -18,11 +18,11 @@ int main()
 	for(j=0;j<s2;j++)
 		merge[i+j]=arr2[j];
 	for(i=0;i<s1+s2;i++){
-		for(j=0;j<s1+s2;j++){
-			if(merge[i]<merge[j]){
-				tmp=merge[i];
-				merge[i]=merge[j];
-				merge[j]=tmp;
+		for(j=i+1;j<s1+s2;j++){
+			if(merge[j]<merge[i]){
+				tmp=merge[j];
+				merge[j]=merge[i];
+				merge[i]=tmp;
 			}
 		}
 	}

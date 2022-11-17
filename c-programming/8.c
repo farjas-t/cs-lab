@@ -1,4 +1,4 @@
-//Create a pattern with the number N
+//8-Create a pattern with the number N
 #include<stdio.h>
 int main()
 {

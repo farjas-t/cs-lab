@@ -2,7 +2,7 @@
 #include <stdio.h>
 int main()
 {
-	int a[10][10], t[10][10], r, c;
+	int a[10][10], r, c;
 	printf("Enter rows and columns: ");
 	scanf("%d %d", &r, &c);
 	printf("\nEnter matrix elements:\n");
@@ -19,14 +19,10 @@ int main()
 			printf("%d  ", a[i][j]);
 		printf("\n");
 	}
-	for (int i = 0; i < r; ++i)
-		for (int j = 0; j < c; ++j)
-			t[j][i] = a[i][j];
 	printf("\nTranspose of the matrix:\n");
-	for (int i = 0; i < c; ++i)
-	{
+	for (int i = 0; i < c; ++i){
 		for (int j = 0; j < r; ++j)
-			printf("%d  ", t[i][j]);
+			printf("%d  ", a[j][i]);
 		printf("\n");
 	}
 	return 0;

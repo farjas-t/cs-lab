@@ -1,16 +1,17 @@
+//11-Find the amstrong numbers within a given range
 #include<stdio.h>
 int main(){
-	int j,u,i,s,m,d;
+	int a,b,s,t,d;
 	printf("Enter the Range : ");
-	scanf("%d%d",&j,&u);
-	printf("Amstrong Numbers in the range: %d to %d",j,u);
-	for (i=1;i<=u;i++){
+	scanf("%d%d",&a,&b);
+	printf("Amstrong Numbers in the range: %d to %d",a,b);
+	for (int i=a; i<=b; i++){
 		s=0;
-		m=i;
-		while(m>0){
-			d=m%10;
+		t=i;
+		while(t){
+			d=t%10;
 			s=s+d*d*d;
-			m=m/10;
+			t/=10;
 		}
 		if (i==s)
 			printf("\n%d ",i);
