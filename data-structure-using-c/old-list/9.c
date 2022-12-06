@@ -1,4 +1,4 @@
-//11-Create a doubly linked list of integers and display in forward and backward direction
+//9-Create a doubly linked list of integers and display in forward and backward direction
 #include <stdio.h>
 #include <stdlib.h>
 struct node {

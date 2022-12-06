@@ -1,16 +1,24 @@
-//1-Reverse a string using pointers
+//1. Sort a given list of strings.
 #include <stdio.h>
-#include <string.h>
+#include <conio.h>
 int main()
 {
-	char str[50],*ptr;
-	int len,i;
-	printf("Enter a String: ");
-	gets(str);
-	ptr=str;
-	len=strlen(str);
-	printf("The Reverse of the String is:");
-	for(i=len;i>=0;i--)
-		printf("%c",*(ptr+i));
+    
+    int n,i,j;
+    printf("Enter number of strings to sort : ");
+    scanf("%d",&n);
+    char str[n][20];
+    printf("Enter the Names to Sort: \n\n");
+    for(i=0; i<n; i++)
+        scanf("%s",str[i]);
+    printf("Sorted list of Names are: \n\n");
+    for(i=65; i<122; i++)
+    {
+        for(j=0; j<n; j++)
+        {
+            if(str[j][0]==i)
+                printf("\n%s",str[j]);
+        }
+    }
+    return 0;
 }
-

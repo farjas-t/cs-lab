@@ -22,11 +22,3 @@ int main()
         printf("%d ", merge[i]);
     return 0;
 }
-
-
-
-
-
-
-
-

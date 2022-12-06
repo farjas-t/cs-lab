@@ -7,8 +7,8 @@ int main()
     scanf("%d",&m);
     printf("Enter number of columns in the matrix : ");
     scanf("%d",&n);
-    printf("Enter elements in the matrix : \n");
-     for (i = 0; i < m; i++) 
+    printf("Enter elements in the sparse matrix : \n");
+    for (i = 0; i < m; i++) 
         for (j = 0; j < n; j++) 
             scanf("%d",&S[i][j]);
     printf("The matrix is \n");

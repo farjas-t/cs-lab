@@ -1,24 +1,40 @@
-//3-Search an element in the two dimensional array
-#include<stdio.h>
-int main(){
-  int r, c, item, count=0, array[10][10];
-  printf("Enter the number of rows and columns: ");
-  scanf("%d %d", &r, &c);
-  printf("Enter %d elements: \n", (r*c));
-  for(int i=0; i<r; i++)
-    for(int j=0; j<c; j++)
-      scanf("%d", &array[i][j]);
-  printf("Enter the item to find: ");
-  scanf("%d", &item);
-  for(int i=0; i<r; i++){
-    for(int j=0; j<c; j++){
-      if(array[i][j] == item){
-        printf("Item found at [%d, %d] \n", i, j);
-        count++;
-      }
-    }
-  }
-  if(count==0)
-    printf("Item Not found");
-  return 0;
+//3-Implement Pattern matching algorithm.
+#include <stdio.h>
+#include <string.h>
+int match(char [], char []);
+int main() {
+	char a[100], b[100];
+	int pos;
+	printf("Enter the string : ");
+	gets(a);
+	printf("Enter the string to find : ");
+	gets(b);
+	pos = match(a, b);
+	if (pos != -1) {
+		printf("Found at location: %d", pos + 1);
+	}
+	else {
+		printf("Not found.");
+	}
+	return 0;
+}
+int match(char text[], char pat[]) {
+	int c, d, e, tlen, plen, pos = -1;
+	tlen    = strlen(text);
+	plen = strlen(pat);
+	if (plen > tlen) {
+		return -1;
+	}
+	for (c = 0; c <= tlen - plen; c++) {
+		pos = e = c;
+		for (d = 0; d < plen; d++) {
+			if (pat[d] == text[e])
+				e++;
+			else
+				break;
+		}
+		if (d == plen)
+			return pos;
+	}
+	return -1;
 }

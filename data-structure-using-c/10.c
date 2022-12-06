@@ -1,63 +1,58 @@
-//10-Implement Stack using array
-#include <stdio.h>   
-int stack[100],i,j,choice=0,n,top=-1;  
-void push();  
-void pop();  
-void show();  
+//10-Create a singly linked list and search an element from that list.
+#include <stdio.h>  
+#include <stdbool.h>  
+   
+struct node{  
+    int data;  
+    struct node *next;  
+};      
+
+struct node *head, *tail = NULL;  
+    
+void addNode(int data) {  
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));  
+    newNode->data = data;  
+    newNode->next = NULL;   
+    if(head == NULL) {  
+        head = newNode;  
+        tail = newNode;  
+    }  
+    else {  
+        tail->next = newNode; 
+        tail = newNode;  
+    }  
+}  
+   
+void searchNode(int data) {  
+    struct node *current = head;  
+    int i = 1;  
+    bool flag = false;  
+    if(head == NULL) {  
+        printf("List is empty \n");  
+    }  
+    else {  
+        while(current != NULL) {  
+            if(current->data == data) {  
+                flag = true;  
+                break;  
+            }  
+            i++;  
+            current = current->next;  
+        }  
+    }  
+    if(flag)  
+         printf("Element is present in the list at the position: %d\n", i);  
+    else  
+         printf("Element is not present in the list\n");  
+}  
+      
 int main()  
 {  
-    printf("Enter the number of elements in the stack : ");   
-    scanf("%d",&n);
-    while(choice != 4)  
-    {  
-        printf("Chose one from the below options...\n");  
-        printf("\n1.Push\n2.Pop\n3.Show\n4.Exit");  
-        printf("\n Enter your choice : ");        
-        scanf("%d",&choice);  
-        switch(choice)  
-        {  
-            case 1:    
-                push();  
-                break;  
-            case 2:  
-                pop();  
-                break;  
-            case 3:  
-                show();  
-                break;  
-            case 4:   
-                printf("Exiting....");  
-                break;   
-            default:  
-                printf("Please Enter valid choice ");  
-        };  
-    }  
-}   
-void push()  
-{  
-    int val;      
-    if (top == n ) {  
-		printf("\n Overflow");
-	}
-    else   
-    {  
-        printf("Enter the value?");  
-        scanf("%d",&val);         
-        top = top +1;   
-        stack[top] = val;   
-    }   
-}   
-void pop()   
-{   
-    if(top == -1)   
-		printf("Underflow");  
-    else  
-		top = top -1;   
-}   
-void show()  
-{  
-    for (i=top;i>=0;i--)  
-        printf("%d\n",stack[i]);  
-    if(top == -1)   
-        printf("Stack is empty");  
+    addNode(1);  
+    addNode(2);  
+    addNode(3);  
+    addNode(4);  
+    searchNode(2);  
+    searchNode(7);  
+    return 0;  
 }  

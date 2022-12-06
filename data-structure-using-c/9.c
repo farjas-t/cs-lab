@@ -1,88 +1,75 @@
-//9-Create a doubly linked list of integers and display in forward and backward direction
-#include <stdio.h>
-#include <stdlib.h>
-struct node {
-    int data;
-    struct node * prev;
-    struct node * next;
-}*head, *last;
-void createList(int n);
-void displayListFromFirst();
-void displayListFromEnd();
-int main() {
-    int n;
-    head = NULL;
-    last = NULL;
-    printf("Enter the number of nodes you want to create: ");
-    scanf("%d", &n);
-    createList(n);
-    printf("\n\nLinked list in forward direction :\n");
-    displayListFromFirst();
-    printf("\n\nLinked list in backward direction :\n");
-    displayListFromEnd();
-    return 0;
-}
-void createList(int n) {
-    int i, data;
-    struct node *newNode;
-    if(n >= 1) {
-        head = (struct node *)malloc(sizeof(struct node));
-        if(head != NULL) {
-            printf("Enter data of 1 node: ");
-            scanf("%d", &data);
-            head->data = data;
-            head->prev = NULL;
-            head->next = NULL;
-            last = head;
-            for(i=2; i<=n; i++) {
-                newNode = (struct node *)malloc(sizeof(struct node));
-                if(newNode != NULL){
-                    printf("Enter data of %d node: ", i);
-                    scanf("%d", &data);
-                    newNode->data = data;
-                    newNode->prev = last;
-                    newNode->next = NULL;
-                    last->next = newNode;
-                    last = newNode;
-                }
-                else {
-                    printf("Unable to allocate memory.");
-                    break;
-                }
-            }
-            printf("\nDOUBLY LINKED LIST CREATED SUCCESSFULLY");
-        }
-        else {
-            printf("Unable to allocate memory");
-        }
-    }
-}
+//9-Sort a singly linked list.
+#include <stdio.h>  
 
-void displayListFromFirst() {
-    struct node * temp;
-    if(head == NULL) {
-        printf("List is empty.");
-    }
-    else {
-        temp = head;
-        while(temp != NULL) {
-            printf(" %d --> ", temp->data);
-            temp = temp->next;
-            if(temp==NULL) printf(" NULL ");
-        }
-    }
-}
-void displayListFromEnd() {
-    struct node * temp;
-    if(last == NULL) {
-        printf("List is empty.");
-    }
-    else {
-        temp = last;
-        while(temp != NULL) {
-            printf(" %d --> ", temp->data);
-            temp = temp->prev; 
-            if(temp==NULL) printf(" NULL ");
-        }
-    }
-}
+struct node{  
+    int data;  
+    struct node *next;  
+};  
+    
+struct node *head, *tail = NULL;  
+
+void addNode(int data) {   
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));  
+    newNode->data = data;  
+    newNode->next = NULL;  
+    if(head == NULL) {  
+        head = newNode;  
+        tail = newNode;  
+    }  
+    else {  
+        tail->next = newNode;  
+        tail = newNode;  
+    }  
+}  
+
+void sortList() {  
+	struct node *current = head, *index = NULL;  
+	int temp;  
+	  
+	if(head == NULL) {  
+		return;  
+	}  
+	else {  
+		while(current != NULL) {  
+			index = current->next;  
+			  
+			while(index != NULL) {  
+				if(current->data > index->data) {  
+					temp = current->data;  
+					current->data = index->data;  
+					index->data = temp;  
+				}  
+				index = index->next;  
+			}  
+			current = current->next;  
+		}      
+	}  
+}  
+
+void display() {  
+    struct node *current = head;  
+    if(head == NULL) {  
+        printf("List is empty \n");  
+        return;  
+    }  
+    while(current != NULL) { 
+        printf("%d ", current->data);  
+        current = current->next;  
+    }  
+    printf("\n");  
+}  
+      
+int main()  
+{  
+    addNode(9);  
+    addNode(7);  
+    addNode(2);  
+    addNode(5);  
+    addNode(4);  
+    printf("Original list: \n");  
+    display();   
+    sortList();  
+    printf("Sorted list: \n");  
+    display();  
+    return 0;  
+}  

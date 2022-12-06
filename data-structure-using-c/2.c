@@ -1,4 +1,4 @@
-//2- Implement Pattern matching algorithm
+//3- Implement Pattern matching algorithm
 #include <stdio.h> 
 #include <string.h> 
 int main() 
