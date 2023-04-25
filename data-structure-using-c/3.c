@@ -1,40 +1,26 @@
 //3-Implement Pattern matching algorithm.
-#include <stdio.h>
-#include <string.h>
-int match(char [], char []);
-int main() {
-	char a[100], b[100];
-	int pos;
-	printf("Enter the string : ");
-	gets(a);
-	printf("Enter the string to find : ");
-	gets(b);
-	pos = match(a, b);
-	if (pos != -1) {
-		printf("Found at location: %d", pos + 1);
-	}
-	else {
-		printf("Not found.");
-	}
-	return 0;
-}
-int match(char text[], char pat[]) {
-	int c, d, e, tlen, plen, pos = -1;
-	tlen    = strlen(text);
-	plen = strlen(pat);
-	if (plen > tlen) {
-		return -1;
-	}
-	for (c = 0; c <= tlen - plen; c++) {
-		pos = e = c;
-		for (d = 0; d < plen; d++) {
-			if (pat[d] == text[e])
-				e++;
-			else
-				break;
-		}
-		if (d == plen)
-			return pos;
-	}
-	return -1;
+#include <stdio.h> 
+#include <string.h> 
+int main() 
+{ 
+    char text[20],pat[20];
+    int a,b,i,j,flag=0;
+    printf("Enter the string : ");
+    gets(text);
+    printf("Enter the pattern to find : ");
+    gets(pat);
+    a = strlen(pat); 
+    b = strlen(text); 
+    for (i = 0; i <= b - a; i++) { 
+        for (j = 0; j < a; j++) 
+            if (text[i + j] != pat[j]) 
+                break;
+        if (j == a){
+            printf("Pattern found at position %d \n", i+1); 
+            flag=1;
+        }
+    } 
+    if (flag==0)
+        printf("Pattern not found!");
+    return 0;
 }
