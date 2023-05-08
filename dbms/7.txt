@@ -1,0 +1,60 @@
+CREATE TABLE employee (emp_name varchar(50) PRIMARY KEY, city varchar(50));
+
+CREATE TABLE manages (emp_name varchar(50) REFERENCES employee(emp_name),manager_name varchar(50));
+
+CREATE TABLE company (company_name varchar(50) PRIMARY KEY, city varchar(50));
+	
+CREATE TABLE works (emp_name varchar(50) REFERENCES employee(emp_name),company_name varchar(50) REFERENCES company(company_name),salary numeric(10,2));
+
+INSERT INTO employee VALUES ('Farjaz', 'New York'),('Govind', 'San Francisco'),('Fazal', 'Los Angeles'),('Farzana', 'Chicago'),('Salih', 'Boston');
+	
+INSERT INTO company VALUES ('Infosys', 'New York'),('Wipro', 'San Francisco'),('Google', 'Mountain View'),('Microsoft', 'Seattle'),('Amazon', 'Seattle');
+	
+INSERT INTO works VALUES ('Farjaz','Infosys', 12000.00),('Govind', 'Wipro', 13000.00),('Fazal', 'Google', 15000.00),('Farzana', 'Microsoft', 11000.00),('Salih', 'Amazon', 14000.00);
+
+INSERT INTO manages VALUES ('Farjaz', 'Salil Parekh'),('Govind', 'Thierry Delaporte'),('Fazal', 'Sundar Pichai'),('Farzana', 'Satya Nadella'),('Salih', 'Andy Jassy');
+
+
+(A)
+SELECT emp_name FROM works WHERE company_name='Infosys';
+emp_name
+----------
+Farjaz
+
+	
+(B)
+SELECT e.emp_name,e.city FROM employee e INNER JOIN works w ON e.emp_name=w.emp_name WHERE w.company_name='Wipro';
+emp_name |     city
+----------+---------------
+Govind   | San Francisco
+(1 row)
+
+	
+(D)	
+SELECT e.emp_name,e.city FROM employee e INNER JOIN works w ON e.emp_name=w.emp_name WHERE w.company_name='Infosys' AND w.salary>10000;
+emp_name |   city
+----------+----------
+Farjaz   | New York
+(1 row)
+
+	
+(E)	
+SELECT emp_name FROM works WHERE company_name<>'Wipro';
+emp_name
+----------
+Farjaz
+Fazal
+Farzana
+Salih
+(4 rows)	
+
+
+(F)
+SELECT company_name
+FROM company
+JOIN works ON company.company_name = works.company_name
+GROUP BY company.company_name
+ORDER BY COUNT(works.emp_name) DESC
+LIMIT 1;
+	
+

@@ -1,0 +1,35 @@
+postgres=# do $$
+postgres$# declare
+postgres$# rate int;
+postgres$# rec record;
+postgres$# curs1 cursor for select*from elec_bill;
+postgres$# begin
+postgres$# open curs1;
+postgres$# loop
+postgres$# fetch curs1 into rec;
+postgres$# exit when not found;
+postgres$# if rec.units_consumed<=100 then
+postgres$# rate:=3;
+postgres$# elsif rec.units_consumed<=250 then
+postgres$# rate:=4;
+postgres$# elsif rec.units_consumed<=500 then
+postgres$# rate:=5;
+postgres$# else
+postgres$# rate:=6;
+postgres$# end if;
+postgres$# update elec_bill set bill_amt=rate*rec.units_consumed
+postgres$# where cust_no=rec.cust_no;
+postgres$# end loop;
+postgres$# close curs1;
+postgres$# end;
+postgres$# $$ language plpgsql;
+DO
+postgres=# select*from elec_bill;
+ cust_no | cust_name | units_consumed | bill_amt
+---------+-----------+----------------+----------
+     101 | adam      |            200 |      800
+     102 | lisa      |            550 |     3300
+     103 | arun      |             95 |      285
+     104 | aysha     |            430 |     2150
+     105 | sheeja    |            350 |     1750
+(5 rows)

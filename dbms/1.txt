@@ -1,0 +1,117 @@
+postgres=# CREATE TABLE customer (cust_no varchar(5), cust_name varchar(15), age smallint, phone varchar(10));
+CREATE TABLE
+postgres=# \d customer
+                      Table "public.customer"
+  Column   |         Type          | Collation | Nullable | Default
+-----------+-----------------------+-----------+----------+---------
+ cust_no   | character varying(5)  |           |          |
+ cust_name | character varying(15) |           |          |
+ age       | smallint              |           |          |
+ phone     | character varying(10) |           |          |
+
+
+postgres=# SELECT * FROM customer;
+ cust_no | cust_name | age | phone
+---------+-----------+-----+-------
+(0 rows)
+                           
+postgres=# INSERT INTO customer VALUES (101,'George',30,9347851238),(102,'Shambu',27,6325741985),(103,'David',34,9426874621),(104,'Shibu',25,8432569714),(105,'Lolan',22,7251486327);
+INSERT 0 5
+
+postgres=# SELECT * FROM customer;
+ cust_no | cust_name | age |   phone
+---------+-----------+-----+------------
+ 101     | George    |  30 | 9347851238
+ 102     | Shambu    |  27 | 6325741985
+ 103     | David     |  34 | 9426874621
+ 104     | Shibu     |  25 | 8432569714
+ 105     | Lolan     |  22 | 7251486327
+(5 rows)
+
+
+postgres=# ALTER TABLE customer ADD d_birth date;
+ALTER TABLE
+
+postgres=# SELECT * FROM customer;
+ cust_no | cust_name | age |   phone    | d_birth
+---------+-----------+-----+------------+---------
+ 101     | George    |  30 | 9347851238 |
+ 102     | Shambu    |  27 | 6325741985 |
+ 103     | David     |  34 | 9426874621 |
+ 104     | Shibu     |  25 | 8432569714 |
+ 105     | Lolan     |  22 | 7251486327 |
+(5 rows)
+
+
+postgres=# CREATE TABLE cust_phone AS SELECT cust_name,phone FROM customer;
+SELECT 5
+
+postgres=# SELECT * FROM customer;
+ cust_no | cust_name | age |   phone    | d_birth
+---------+-----------+-----+------------+---------
+ 101     | George    |  30 | 9347851238 |
+ 102     | Shambu    |  27 | 6325741985 |
+ 103     | David     |  34 | 9426874621 |
+ 104     | Shibu     |  25 | 8432569714 |
+ 105     | Lolan     |  22 | 7251486327 |
+(5 rows)
+
+
+postgres=# SELECT * FROM cust_phone;
+ cust_name |   phone
+-----------+------------
+ George    | 9347851238
+ Shambu    | 6325741985
+ David     | 9426874621
+ Shibu     | 8432569714
+ Lolan     | 7251486327
+(5 rows)
+
+postgres=# ALTER TABLE customer DROP COLUMN age;
+ALTER TABLE
+
+
+postgres=# SELECT * FROM customer;
+ cust_no | cust_name |   phone    | d_birth
+---------+-----------+------------+---------
+ 101     | George    | 9347851238 |
+ 102     | Shambu    | 6325741985 |
+ 103     | David     | 9426874621 |
+ 104     | Shibu     | 8432569714 |
+ 105     | Lolan     | 7251486327 |
+(5 rows)
+
+
+postgres=# ALTER TABLE customer ALTER COLUMN cust_name TYPE VARCHAR(25);
+ALTER TABLE
+postgres=# \d customer
+                      Table "public.customer"
+  Column   |         Type          | Collation | Nullable | Default
+-----------+-----------------------+-----------+----------+---------
+ cust_no   | character varying(5)  |           |          |
+ cust_name | character varying(25) |           |          |
+ phone     | character varying(10) |           |          |
+ d_birth   | date                  |           |          |
+
+
+postgres=# DELETE FROM customer;
+DELETE 5
+postgres=# SELECT * FROM customer;
+ cust_no | cust_name | phone | d_birth
+---------+-----------+-------+---------
+(0 rows)
+
+
+postgres=# ALTER TABLE customer RENAME TO cust;
+ALTER TABLE
+postgres=# SELECT * FROM cust;
+ cust_no | cust_name | phone | d_birth
+---------+-----------+-------+---------
+(0 rows)
+
+
+postgres=# DROP TABLE cust;
+DROP TABLE
+
+
+

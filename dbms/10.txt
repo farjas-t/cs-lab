@@ -1,0 +1,46 @@
+
+
+
+postgres=# CREATE TABLE exam_result (rollno INT, avg_score FLOAT, Grade CHAR(1));
+CREATE TABLE
+postgres=# select * from exam_result;
+ rollno | avg_score | grade
+--------+-----------+-------
+(0 rows)
+
+postgres=# INSERT INTO exam_result (rollno, avg_score, Grade) VALUES (1, 95.5, NULL), (2, 80.2, NULL), (3, 68.7, NULL), (4, 76.8, NULL), (5, 92.3, NULL), (6, 55.1, NULL), 
+(7, 40.5, NULL), (8, 84.6, NULL), (9, 71.2, NULL), (10, 88.9, NULL);
+INSERT 0 10
+postgres=# DO $$
+postgres$# DECLARE
+postgres$#   r exam_result%ROWTYPE;
+postgres$# BEGIN
+postgres$#   FOR r IN SELECT * FROM exam_result LOOP
+postgres$#     IF r.avg_score BETWEEN 90 AND 100 THEN
+postgres$#       UPDATE exam_result SET Grade = 'A' WHERE rollno = r.rollno;
+postgres$#     ELSIF r.avg_score BETWEEN 75 AND 89 THEN
+postgres$#       UPDATE exam_result SET Grade = 'B' WHERE rollno = r.rollno;
+postgres$#     ELSIF r.avg_score BETWEEN 60 AND 74 THEN
+postgres$#       UPDATE exam_result SET Grade = 'C' WHERE rollno = r.rollno;
+postgres$#     ELSIF r.avg_score BETWEEN 50 AND 59 THEN
+postgres$#       UPDATE exam_result SET Grade = 'D' WHERE rollno = r.rollno;
+postgres$#     ELSE
+postgres$#       UPDATE exam_result SET Grade = 'E' WHERE rollno = r.rollno;
+postgres$#     END IF;
+postgres$#   END LOOP;
+postgres$# END $$;
+DO
+postgres=# select * from exam_result;
+ rollno | avg_score | grade
+--------+-----------+-------
+      1 |      95.5 | A
+      2 |      80.2 | B
+      3 |      68.7 | C
+      4 |      76.8 | B
+      5 |      92.3 | A
+      6 |      55.1 | D
+      7 |      40.5 | E
+      8 |      84.6 | B
+      9 |      71.2 | C
+     10 |      88.9 | B
+(10 rows)

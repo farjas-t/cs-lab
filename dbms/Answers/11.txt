@@ -1,0 +1,19 @@
+CREATE OR REPLACE FUNCTION calculate_areas()
+RETURNS VOID AS $$
+DECLARE
+   pi NUMERIC := 3.14159;
+   radius INTEGER;
+   area NUMERIC;
+   row RECORD;
+BEGIN
+   EXECUTE 'CREATE TABLE areas (radius INTEGER, area NUMERIC)';
+   FOR radius IN 3..7 LOOP
+      area := pi * radius * radius;
+      EXECUTE 'INSERT INTO areas (radius, area) VALUES ($1, $2)'
+         USING radius, area;
+   END LOOP;
+   FOR row IN SELECT * FROM areas LOOP
+      RAISE NOTICE 'Radius: %, Area: %', row.radius, row.area;
+   END LOOP;
+END;
+$$ LANGUAGE plpgsql;

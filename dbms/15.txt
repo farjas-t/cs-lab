@@ -1,0 +1,51 @@
+postgres=# CREATE TABLE stud_mark (
+postgres(#     regno INTEGER PRIMARY KEY,
+postgres(#     sname VARCHAR(50),
+postgres(#     avg_mark FLOAT
+postgres(# );
+CREATE TABLE
+postgres=# INSERT INTO stud_mark (regno, sname, avg_mark) VALUES
+postgres-# (1, 'Farjas', 85),
+postgres-# (2, 'Salih', 95),
+postgres-# (3, 'Fenar', 90),
+postgres-# (3, 'Fasal', 63),
+postgres-# (3, 'Fasal', 63),;
+ERROR:  syntax error at or near ";"
+LINE 6: (3, 'Fasal', 63),;
+                         ^
+postgres=# INSERT INTO stud_mark (regno, sname, avg_mark) VALUES
+postgres-# (1, 'Farjas', 85),
+postgres-# (2, 'Salih', 95),
+postgres-# (3, 'Fenar', 90),
+postgres-# (4, 'Fasal', 63),
+postgres-# (5, 'Jishnu', 55),
+postgres-# (6, 'Farzana', 43),
+postgres-# (7, 'Neeraj', 78),
+postgres-# (8, 'Gayathri', 98);
+INSERT 0 8
+postgres=# CREATE OR REPLACE FUNCTION display_student_grades()
+postgres-# RETURNS TABLE (
+postgres(#     distinction INTEGER,
+postgres(#     first_class INTEGER,
+postgres(#     second_class INTEGER,
+postgres(#     third_class INTEGER,
+postgres(#     failed INTEGER
+postgres(# ) AS $$
+postgres$# BEGIN
+postgres$#     SELECT COUNT(*) FILTER (WHERE avg_mark BETWEEN 90 AND 100) AS distinction,
+postgres$#            COUNT(*) FILTER (WHERE avg_mark BETWEEN 75 AND 89) AS first_class,
+postgres$#            COUNT(*) FILTER (WHERE avg_mark BETWEEN 60 AND 74) AS second_class,
+postgres$#            COUNT(*) FILTER (WHERE avg_mark BETWEEN 50 AND 59) AS third_class,
+postgres$#            COUNT(*) FILTER (WHERE avg_mark < 50) AS failed
+postgres$#     FROM stud_mark
+postgres$#     INTO distinction, first_class, second_class, third_class, failed;
+postgres$#
+postgres$#     RETURN NEXT;
+postgres$# END;
+postgres$# $$ LANGUAGE plpgsql;
+CREATE FUNCTION
+postgres=# SELECT * FROM display_student_grades();
+ distinction | first_class | second_class | third_class | failed
+-------------+-------------+--------------+-------------+--------
+           3 |           2 |            1 |           1 |      1
+(1 row)

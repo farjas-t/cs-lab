@@ -1,0 +1,26 @@
+DO $$
+declare
+n numeric;             
+i numeric;            
+flag numeric;        
+begin
+n := 13;                 
+i := 2; 
+flag := 1; 
+  for i in 2..n/2
+    loop
+        if mod(n, i) = 0
+        then
+            flag := 0;
+            exit;
+        end if;
+    end loop;
+    
+    if flag = 1
+    then
+        raise notice 'true';
+    else
+        raise notice 'false';
+    end if;
+end;   
+$$;       

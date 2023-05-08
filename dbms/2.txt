@@ -1,0 +1,110 @@
+postgres=# CREATE TABLE sales_man (
+postgres(#      salesman_no varchar(5) PRIMARY KEY,
+postgres(#      s_name varchar(15) NOT NULL,
+postgres(#      place varchar(15),
+postgres(#      phone varchar(10) UNIQUE
+postgres(#      );
+CREATE TABLE
+postgres=#
+postgres=# CREATE TABLE sales_order (
+postgres(#      order_no varchar(10) PRIMARY KEY,
+postgres(#      order_date date NOT NULL,
+postgres(#      salesman_no varchar(5) REFERENCES sales_man(salesman_no),
+postgres(#      del_type char(1) CHECK (del_type IN ('P', 'F')),
+postgres(#      order_status varchar(15) CHECK (order_status IN ('Inprocess','Fullfilled','Backorder','Cancelled'))
+postgres(#      );
+CREATE TABLE
+postgres=#
+postgres=# INSERT INTO sales_man VALUES
+postgres-#      ('101', 'Rasheed', 'Calicut', '9754136985'),
+postgres-#      ('102', 'Babu', 'Chennai', '7241536987'),
+postgres-#      ('103', 'Saji', 'Kochi', '8655412987');
+INSERT 0 3
+postgres=#
+postgres=# ALTER TABLE sales_man DROP CONSTRAINT sales_man_pkey;
+ERROR:  cannot drop constraint sales_man_pkey on table sales_man because other objects depend on it
+DETAIL:  constraint sales_order_salesman_no_fkey on table sales_order depends on index sales_man_pkey
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+postgres=# ALTER TABLE sales_order DROP CONSTRAINT sales_order_salesman_no_fkey CASCADE;
+ALTER TABLE
+postgres=# ALTER TABLE sales_man DROP CONSTRAINT sales_man_pkey;
+ALTER TABLE
+postgres=#
+postgres=#
+postgres=# ALTER TABLE sales_order DROP CONSTRAINT sales_order_salesman_no_fkey;
+ERROR:  constraint "sales_order_salesman_no_fkey" of relation "sales_order" does not exist
+postgres=# ALTER TABLE sales_order DROP CONSTRAINT sales_order_del_type_check;
+ALTER TABLE
+postgres=# ALTER TABLE sales_order DROP CONSTRAINT sales_order_order_status_check;
+ALTER TABLE
+postgres=#
+postgres=#
+postgres=# \d sales_man
+                       Table "public.sales_man"
+   Column    |         Type          | Collation | Nullable | Default
+-------------+-----------------------+-----------+----------+---------
+ salesman_no | character varying(5)  |           | not null |
+ s_name      | character varying(15) |           | not null |
+ place       | character varying(15) |           |          |
+ phone       | character varying(10) |           |          |
+Indexes:
+    "sales_man_phone_key" UNIQUE CONSTRAINT, btree (phone)
+
+
+postgres=# \d sales_order
+                      Table "public.sales_order"
+    Column    |         Type          | Collation | Nullable | Default
+--------------+-----------------------+-----------+----------+---------
+ order_no     | character varying(10) |           | not null |
+ order_date   | date                  |           | not null |
+ salesman_no  | character varying(5)  |           |          |
+ del_type     | character(1)          |           |          |
+ order_status | character varying(15) |           |          |
+Indexes:
+    "sales_order_pkey" PRIMARY KEY, btree (order_no)
+
+
+postgres=#
+postgres=#
+postgres=# ALTER TABLE sales_man ADD PRIMARY KEY (salesman_no);
+ALTER TABLE
+postgres=# \d sales_man
+                       Table "public.sales_man"
+   Column    |         Type          | Collation | Nullable | Default
+-------------+-----------------------+-----------+----------+---------
+ salesman_no | character varying(5)  |           | not null |
+ s_name      | character varying(15) |           | not null |
+ place       | character varying(15) |           |          |
+ phone       | character varying(10) |           |          |
+Indexes:
+    "sales_man_pkey" PRIMARY KEY, btree (salesman_no)
+    "sales_man_phone_key" UNIQUE CONSTRAINT, btree (phone)
+
+
+postgres=# ALTER TABLE sales_order ADD CONSTRAINT sales_order_salesman_no_fkey FOREIGN KEY (salesman_no) REFERENCES sales_man (salesman_no);
+ALTER TABLE
+postgres=# ALTER TABLE sales_order ADD CONSTRAINT sales_order_del_type_check CHECK (del_type IN ('P', 'F'));
+ALTER TABLE
+postgres=# ALTER TABLE sales_order ADD CONSTRAINT sales_order_order_status_check CHECK (order_status IN ('Inprocess', 'Fullfilled', 'Backorder', 'Cancelled'));
+ALTER TABLE
+postgres=# \d sales_order
+                      Table "public.sales_order"
+    Column    |         Type          | Collation | Nullable | Default
+--------------+-----------------------+-----------+----------+---------
+ order_no     | character varying(10) |           | not null |
+ order_date   | date                  |           | not null |
+ salesman_no  | character varying(5)  |           |          |
+ del_type     | character(1)          |           |          |
+ order_status | character varying(15) |           |          |
+Indexes:
+    "sales_order_pkey" PRIMARY KEY, btree (order_no)
+Check constraints:
+    "sales_order_del_type_check" CHECK (del_type = ANY (ARRAY['P'::bpchar, 'F'::bpchar]))
+    "sales_order_order_status_check" CHECK (order_status::text = ANY (ARRAY['Inprocess'::character varying, 'Fullfilled'::character varying, 'Backorder'::character varying, 'Cancelled'::character varying]::text[]))
+Foreign-key constraints:
+    "sales_order_salesman_no_fkey" FOREIGN KEY (salesman_no) REFERENCES sales_man(salesman_no)
+
+
+
+
+

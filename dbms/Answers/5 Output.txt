@@ -1,0 +1,45 @@
+empid |  ename   | salary | department | age
+-------+----------+--------+------------+-----
+   100 | Prinsar  |  55000 | CS         |  35
+   101 | Beena    |  65000 | CS         |  45
+   102 | Akshay   |  25000 | CS         |  25
+   103 | Shibu    |  45000 | Maths      |  40
+   104 | Greeshma |  35000 | Maths      |  27
+   105 | Akshara  |  35000 | Sales      |  30
+   106 | Sujith   |  40000 | Sales      |  35
+(7 rows)
+
+
+(a)
+ count
+-------
+     7
+(1 row)
+
+(b)
+ department | max
+------------+-----
+ Maths      |  40
+ CS         |  45
+ Sales      |  35
+(3 rows)
+
+(c)
+ department |         avg
+------------+---------------------
+ Maths      | 33.5000000000000000
+ CS         | 35.0000000000000000
+ Sales      | 32.5000000000000000
+(3 rows)
+
+(d) 
+  min
+-------
+ 25000
+(1 row)
+
+(e)
+  max
+-------
+ 40000
+(1 row)

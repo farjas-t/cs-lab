@@ -1,0 +1,25 @@
+postgres=# do $$
+postgres$# declare
+postgres$# r integer;
+postgres$# ar numeric(10,2);
+postgres$# pi constant float:=3.14;
+postgres$# begin
+postgres$# create table areas(radius integer,area numeric);
+postgres$# r:=3;
+postgres$# While r<=7
+postgres$# loop
+postgres$# ar:=pi*power(r,2);
+postgres$# insert into areas values (r,ar);
+postgres$# r=r+1;
+postgres$# end loop;
+postgres$# end$$;
+DO
+postgres=# select*from areas;
+ radius |  area
+--------+--------
+      3 |  28.26
+      4 |  50.24
+      5 |  78.50
+      6 | 113.04
+      7 | 153.86
+(5 rows)

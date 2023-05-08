@@ -1,0 +1,18 @@
+
+CREATE TABLE employee (empID INT PRIMARY KEY, EName varchar(20), Salary INT, Department varchar(20), Age INT);
+
+INSERT INTO employee VALUES
+(100,'Prinsar',55000,'CS',35),
+(101,'Beena',65000,'CS',45),
+(102,'Akshay',25000,'CS',25),
+(103,'Shibu',45000,'Maths',40),
+(104,'Greeshma',35000,'Maths',27),
+(105,'Akshara',35000,'Sales',30),
+(106,'Sujith',40000,'Sales',35);
+
+a) SELECT COUNT(*) FROM employee;
+b) SELECT department, MAX(age) FROM employee GROUP BY department;
+c) SELECT department, AVG(age) FROM employee GROUP BY department;
+d) SELECT MIN(salary) FROM employee;
+e) SELECT MAX(Salary) FROM employee WHERE department='Sales';
+f) SELECT MAX(Salary) - MIN(Salary) FROM employee;

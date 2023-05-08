@@ -1,0 +1,44 @@
+postgres=# CREATE OR REPLACE FUNCTION print_fibonacci(p_limit INTEGER)
+postgres-# RETURNS VOID AS $$
+postgres$# DECLARE
+postgres$#     a INTEGER := 0;
+postgres$#     b INTEGER := 1;
+postgres$#     c INTEGER;
+postgres$# BEGIN
+postgres$#     RAISE NOTICE 'Fibonacci sequence up to limit %:', p_limit;
+postgres$#
+postgres$#     IF p_limit >= 1 THEN
+postgres$#         RAISE NOTICE ' %', a;
+postgres$#     END IF;
+postgres$#
+postgres$#     IF p_limit >= 2 THEN
+postgres$#         RAISE NOTICE ' %', b;
+postgres$#     END IF;
+postgres$#
+postgres$#     WHILE a + b <= p_limit LOOP
+postgres$#         c := a + b;
+postgres$#         RAISE NOTICE ' %', c;
+postgres$#         a := b;
+postgres$#         b := c;
+postgres$#     END LOOP;
+postgres$# END;
+postgres$# $$ LANGUAGE plpgsql;
+CREATE FUNCTION
+postgres=# SELECT print_fibonacci(100);
+NOTICE:  Fibonacci sequence up to limit 100:
+NOTICE:   0
+NOTICE:   1
+NOTICE:   1
+NOTICE:   2
+NOTICE:   3
+NOTICE:   5
+NOTICE:   8
+NOTICE:   13
+NOTICE:   21
+NOTICE:   34
+NOTICE:   55
+NOTICE:   89
+ print_fibonacci
+-----------------
+
+(1 row)

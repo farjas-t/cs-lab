@@ -1,0 +1,36 @@
+postgres=# CREATE TABLE emp_salary (
+postgres(#     empno INTEGER PRIMARY KEY,
+postgres(#     ename VARCHAR(50),
+postgres(#     dept VARCHAR(50),
+postgres(#     salary NUMERIC(10,2)
+postgres(# );
+CREATE TABLE
+postgres=# CREATE OR REPLACE FUNCTION get_average_salary(dept_name VARCHAR(50))
+postgres-# RETURNS NUMERIC(10,2) AS $$
+postgres$# DECLARE
+postgres$#     avg_salary NUMERIC(10,2);
+postgres$# BEGIN
+postgres$#     SELECT AVG(salary)
+postgres$#     INTO avg_salary
+postgres$#     FROM emp_salary
+postgres$#     WHERE dept = dept_name;
+postgres$#
+postgres$#     RETURN avg_salary;
+postgres$# END;
+postgres$# $$ LANGUAGE plpgsql;
+CREATE FUNCTION
+postgres=# SELECT get_average_salary('IT');
+ get_average_salary
+--------------------
+
+(1 row)
+
+postgres=# INSERT INTO emp_salary (empno, ename, dept, salary)
+postgres-# VALUES
+postgres-# (1, 'Farjas', 'IT', 5000.00),
+postgres-# (2, 'Neeraj', 'Sales', 7000.00),
+postgres-# (3, 'Salih', 'IT', 6000.00),
+postgres-# (4, 'Fenar', 'Marketing', 5500.00),
+postgres-# (5, 'Fasal', 'Sales', 6500.00),
+postgres-# (6, 'Farzana', 'Marketing', 8000.00);
+INSERT 0 6

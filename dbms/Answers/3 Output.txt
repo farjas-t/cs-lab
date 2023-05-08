@@ -1,0 +1,29 @@
+
+ doctorid | doctorname  |  department  | qualification | experience
+----------+-------------+--------------+---------------+------------
+ D001     | John Doe    | Skin         | MD            |          7
+ D002     | Jane Smith  | ENT          | MBBS          |          3
+ D003     | Bob Johnson | Cardiology   | MD            |         12
+ D004     | Sally Brown | Orthopaedics | MS            |          8
+ D005     | Tom Jones   | Skin         | MBBS          |          4
+(5 rows)
+
+
+ doctorid | doctorname  | department | qualification | experience
+----------+-------------+------------+---------------+------------
+ D001     | John Doe    | Skin       | MD            |          7
+ D003     | Bob Johnson | Cardiology | MD            |         12
+(2 rows)
+
+
+ doctorid | doctorname  |  department  | qualification | experience
+----------+-------------+--------------+---------------+------------
+ D004     | Sally Brown | Orthopaedics | MS            |          8
+(1 row)
+
+
+ doctorid | doctorname | department | qualification | experience
+----------+------------+------------+---------------+------------
+ D001     | John Doe   | Skin       | MD            |          7
+ D005     | Tom Jones  | Skin       | MBBS          |          4
+(2 rows)

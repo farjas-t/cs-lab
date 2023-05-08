@@ -1,0 +1,85 @@
+college=# CREATE TABLE employee (empID INT PRIMARY KEY, EName varchar(20), Salary INT, Department varchar(20), Age INT);
+CREATE TABLE
+college=# \d employee
+                       Table "public.employee"
+   Column   |         Type          | Collation | Nullable | Default
+------------+-----------------------+-----------+----------+---------
+ empid      | integer               |           | not null |
+ ename      | character varying(20) |           |          |
+ salary     | integer               |           |          |
+ department | character varying(20) |           |          |
+ age        | integer               |           |          |
+Indexes:
+    "employee_pkey" PRIMARY KEY, btree (empid)
+
+
+college=# SELECT * FROM employee;
+ empid | ename | salary | department | age
+-------+-------+--------+------------+-----
+(0 rows)
+
+college=# INSERT INTO employee VALUES
+college-# (100,'Prinsar',55000,'CS',35),
+college-# (101,'Beena',65000,'CS',45),
+college-# (102,'Akshay',25000,'CS',25),
+college-# (103,'Shibu',45000,'Maths',40),
+college-# (104,'Greeshma',35000,'Maths',27),
+college-# (105,'Akshara',35000,'Sales',30),
+college-# (106,'Sujith',40000,'Sales',35);
+INSERT 0 7
+
+college=# SELECT * FROM employee;
+ empid |  ename   | salary | department | age
+-------+----------+--------+------------+-----
+   100 | Prinsar  |  55000 | CS         |  35
+   101 | Beena    |  65000 | CS         |  45
+   102 | Akshay   |  25000 | CS         |  25
+   103 | Shibu    |  45000 | Maths      |  40
+   104 | Greeshma |  35000 | Maths      |  27
+   105 | Akshara  |  35000 | Sales      |  30
+   106 | Sujith   |  30000 | Sales      |  35
+(7 rows)
+
+
+college=# SELECT COUNT(*) FROM employee;
+ count
+-------
+     7
+(1 row)
+
+college=# SELECT department, MAX(age) FROM employee GROUP BY department;
+ department | max
+------------+-----
+ Maths      |  40
+ CS         |  45
+ Sales      |  35
+(3 rows)
+
+
+college=# SELECT department, AVG(age) FROM employee GROUP BY department;
+ department |         avg
+------------+---------------------
+ Maths      | 33.5000000000000000
+ CS         | 35.0000000000000000
+ Sales      | 32.5000000000000000
+(3 rows)
+
+
+college=# SELECT MIN(salary) FROM employee;
+  min
+-------
+ 25000
+(1 row)
+
+
+college=# SELECT MAX(Salary) FROM employee WHERE department='Sales';
+  max
+-------
+ 30000
+(1 row)
+
+college=# SELECT MAX(Salary) - MIN(Salary) as salary_range FROM employee;
+ salary_range
+--------------
+  40000
+(1 row)
