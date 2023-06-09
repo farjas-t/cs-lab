@@ -1,0 +1,57 @@
+postgres=# CREATE TABLE SALARIES (
+postgres(#   EmpNo CHARACTER(10),
+postgres(#   Name CHARACTER(20),
+postgres(#   Basic NUMERIC(6),
+postgres(#   DA NUMERIC(6),
+postgres(#   GrossSalary NUMERIC(6),
+postgres(#   PF NUMERIC(6),
+postgres(#   NetSalary NUMERIC(6),
+postgres(#   AnnualSalary NUMERIC(8),
+postgres(#   Tax NUMERIC(8)
+postgres(# );
+CREATE TABLE
+postgres=#
+postgres=#
+postgres=# INSERT INTO SALARIES (EmpNo, Name, Basic)
+postgres-# VALUES
+postgres-#   ('E001', 'Farjas', 90000),
+postgres-#   ('E002', 'Fajr', 60000),
+postgres-#   ('E003', 'Fazal', 70000),
+postgres-#   ('E004', 'Fenar', 55000),
+postgres-#   ('E005', 'Neeraj', 45000),
+postgres-#   ('E006', 'Salih', 80000),
+postgres-#   ('E007', 'Anulal', 65000),
+postgres-#   ('E008', 'Hanan', 75000),
+postgres-#   ('E009', 'Arshad', 50000),
+postgres-#   ('E010', 'Shamil', 70000);
+INSERT 0 10
+postgres=# UPDATE SALARIES
+postgres-# SET
+postgres-#   DA = Basic * 0.4,
+postgres-#   GrossSalary = Basic + (Basic * 0.4),
+postgres-#   PF = Basic * 0.1,
+postgres-#   NetSalary = Basic + (Basic * 0.4) - (Basic * 0.1),
+postgres-#   AnnualSalary = (Basic + (Basic * 0.4) - (Basic * 0.1)) * 12,
+postgres-#   Tax = CASE
+postgres-#     WHEN (Basic + (Basic * 0.4) - (Basic * 0.1)) * 12 <= 100000 THEN 0
+postgres-#     WHEN (Basic + (Basic * 0.4) - (Basic * 0.1)) * 12 <= 150000 THEN (((Basic + (Basic * 0.4) - (Basic * 0.1)) * 12) - 100000) * 0.1
+postgres-#     WHEN (Basic + (Basic * 0.4) - (Basic * 0.1)) * 12 <= 250000 THEN 5000 + (((Basic + (Basic * 0.4) - (Basic * 0.1)) * 12) - 150000) * 0.2
+postgres-#     ELSE 35000 + (((Basic + (Basic * 0.4) - (Basic * 0.1)) * 12) - 250000) * 0.3
+postgres-#   END;
+UPDATE 10
+postgres=#
+postgres=# SELECT EmpNo, Name, Basic, DA, GrossSalary, PF, NetSalary, AnnualSalary, Tax
+postgres-# FROM SALARIES;
+   empno    |         name         | basic |  da   | grosssalary |  pf  | netsalary | annualsalary |  tax
+------------+----------------------+-------+-------+-------------+------+-----------+--------------+--------
+ E001       | Farjas               | 90000 | 36000 |      126000 | 9000 |    117000 |      1404000 | 381200
+ E002       | Fajr                 | 60000 | 24000 |       84000 | 6000 |     78000 |       936000 | 240800
+ E003       | Fazal                | 70000 | 28000 |       98000 | 7000 |     91000 |      1092000 | 287600
+ E004       | Fenar                | 55000 | 22000 |       77000 | 5500 |     71500 |       858000 | 217400
+ E005       | Neeraj               | 45000 | 18000 |       63000 | 4500 |     58500 |       702000 | 170600
+ E006       | Salih                | 80000 | 32000 |      112000 | 8000 |    104000 |      1248000 | 334400
+ E007       | Anulal               | 65000 | 26000 |       91000 | 6500 |     84500 |      1014000 | 264200
+ E008       | Hanan                | 75000 | 30000 |      105000 | 7500 |     97500 |      1170000 | 311000
+ E009       | Arshad               | 50000 | 20000 |       70000 | 5000 |     65000 |       780000 | 194000
+ E010       | Shamil               | 70000 | 28000 |       98000 | 7000 |     91000 |      1092000 | 287600
+(10 rows)

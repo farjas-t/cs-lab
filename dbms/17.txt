@@ -1,0 +1,57 @@
+
+
+postgres=# CREATE TABLE Student (
+postgres(#   regno INT PRIMARY KEY,
+postgres(#   sname VARCHAR(50),
+postgres(#   sub1 INT,
+postgres(#   sub2 INT,
+postgres(#   sub3 INT,
+postgres(#   sub4 INT,
+postgres(#   sub5 INT,
+postgres(#   mark_total INT,
+postgres(#   avg_mark DECIMAL(5, 2)
+postgres(# );
+CREATE TABLE
+
+
+postgres=# select * from student;
+ regno | sname | sub1 | sub2 | sub3 | sub4 | sub5 | mark_total | avg_mark
+-------+-------+------+------+------+------+------+------------+----------
+(0 rows)
+
+
+postgres=# CREATE OR REPLACE FUNCTION calculate_marks()
+postgres-# RETURNS TRIGGER AS $$
+postgres$# BEGIN
+postgres$#   NEW.mark_total := NEW.sub1 + NEW.sub2 + NEW.sub3 + NEW.sub4 + NEW.sub5;
+postgres$#   NEW.avg_mark := NEW.mark_total / 5.0;
+postgres$#   RETURN NEW;
+postgres$# END;
+postgres$# $$ LANGUAGE plpgsql;
+CREATE FUNCTION
+
+
+postgres=# CREATE TRIGGER calculate_marks_trigger
+postgres-# BEFORE INSERT ON Student
+postgres-# FOR EACH ROW
+postgres-# EXECUTE PROCEDURE calculate_marks();
+CREATE TRIGGER
+
+
+postgres=# INSERT INTO Student (regno, sname, sub1, sub2, sub3, sub4, sub5)
+postgres-# VALUES
+postgres-#   (1, 'John Doe', 80, 85, 90, 92, 88),
+postgres-#   (2, 'Jane Smith', 75, 90, 82, 88, 79),
+postgres-#   (3, 'Robert Johnson', 92, 87, 85, 89, 90);
+INSERT 0 3
+
+
+postgres=# select * from student;
+ regno |     sname      | sub1 | sub2 | sub3 | sub4 | sub5 | mark_total | avg_mark
+-------+----------------+------+------+------+------+------+------------+----------
+     1 | John Doe       |   80 |   85 |   90 |   92 |   88 |        435 |    87.00
+     2 | Jane Smith     |   75 |   90 |   82 |   88 |   79 |        414 |    82.80
+     3 | Robert Johnson |   92 |   87 |   85 |   89 |   90 |        443 |    88.60
+(3 rows)
+
+

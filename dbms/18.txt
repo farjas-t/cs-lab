@@ -1,0 +1,86 @@
+
+postgres=# CREATE TABLE phonebook (
+postgres(#   pname VARCHAR(100),
+postgres(#   mobno VARCHAR(20)
+postgres(# );
+CREATE TABLE
+
+
+postgres=# CREATE TABLE del_phonebook (
+postgres(#   pname VARCHAR(100),
+postgres(#   mobno VARCHAR(20),
+postgres(#   modfy_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+postgres(# );
+CREATE TABLE
+
+
+postgres=# CREATE OR REPLACE FUNCTION phonebook_trigger_function()
+postgres-#   RETURNS TRIGGER AS $$
+postgres$# BEGIN
+postgres$#   IF TG_OP = 'DELETE' OR TG_OP = 'UPDATE' THEN
+postgres$#     INSERT INTO del_phonebook (pname, mobno, modfy_date)
+postgres$#     VALUES (OLD.pname, OLD.mobno, CURRENT_TIMESTAMP);
+postgres$#   END IF;
+postgres$#   RETURN NULL;
+postgres$# END;
+postgres$# $$ LANGUAGE plpgsql;
+CREATE FUNCTION
+
+
+postgres=# CREATE TRIGGER phonebook_trigger
+postgres-# AFTER DELETE OR UPDATE ON phonebook
+postgres-# FOR EACH ROW
+postgres-# EXECUTE PROCEDURE phonebook_trigger_function();
+CREATE TRIGGER
+
+
+postgres=# INSERT INTO phonebook (pname, mobno)
+postgres-# VALUES ('John Doe', '1234567890');
+INSERT 0 1
+
+
+postgres=# SELECT * FROM phonebook;
+  pname   |   mobno
+----------+------------
+ John Doe | 1234567890
+(1 row)
+
+postgres=# DELETE FROM phonebook WHERE pname = 'John Doe';
+DELETE 1
+
+postgres=# SELECT * FROM phonebook;
+ pname | mobno
+-------+-------
+(0 rows)
+
+
+postgres=# SELECT * FROM del_phonebook;
+  pname   |   mobno    |         modfy_date
+----------+------------+----------------------------
+ John Doe | 1234567890 | 2023-06-08 23:29:41.857749
+(1 row)
+
+
+postgres=# INSERT INTO phonebook (pname, mobno)
+postgres-# VALUES
+postgres-#   ('Alice Johnson', '5551234567'),
+postgres-#   ('Bob Williams', '5559876543'),
+postgres-#   ('Eve Davis', '5551112222');
+INSERT 0 3
+
+postgres=# DELETE FROM phonebook WHERE pname = 'Alice Johnson';
+DELETE 1
+
+postgres=# SELECT * FROM phonebook;
+    pname     |   mobno
+--------------+------------
+ Bob Williams | 5559876543
+ Eve Davis    | 5551112222
+(2 rows)
+
+postgres=# SELECT * FROM del_phonebook;
+     pname     |   mobno    |         modfy_date
+---------------+------------+----------------------------
+ John Doe      | 1234567890 | 2023-06-08 23:29:41.857749
+ Alice Johnson | 5551234567 | 2023-06-08 23:30:06.993678
+(2 rows)
