@@ -19,11 +19,6 @@ postgres$#     RETURN avg_salary;
 postgres$# END;
 postgres$# $$ LANGUAGE plpgsql;
 CREATE FUNCTION
-postgres=# SELECT get_average_salary('IT');
- get_average_salary
---------------------
-
-(1 row)
 
 postgres=# INSERT INTO emp_salary (empno, ename, dept, salary)
 postgres-# VALUES
@@ -34,3 +29,9 @@ postgres-# (4, 'Fenar', 'Marketing', 5500.00),
 postgres-# (5, 'Fasal', 'Sales', 6500.00),
 postgres-# (6, 'Farzana', 'Marketing', 8000.00);
 INSERT 0 6
+
+postgres=# SELECT get_average_salary('IT');
+ get_average_salary
+--------------------
+            5500.00
+(1 row)
