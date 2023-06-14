@@ -1,0 +1,162 @@
+
+----------------------------------------------------
+     Queries :
+----------------------------------------------------
+
+CREATE TABLE sales_man (
+    salesman_no INT PRIMARY KEY,
+    s_name VARCHAR(255) NOT NULL,
+    place VARCHAR(255),
+    phone VARCHAR(255) UNIQUE
+);
+
+CREATE TABLE sales_order (
+    order_no INT PRIMARY KEY,
+    order_date DATE NOT NULL,
+    salesman_no INT,
+    del_type CHAR(1),
+    order_status VARCHAR(255),
+    FOREIGN KEY (salesman_no) REFERENCES sales_man(salesman_no),
+    CONSTRAINT chk_del_type CHECK (del_type IN ('P', 'F')),
+    CONSTRAINT chk_order_status CHECK (order_status IN ('Inprocess', 'Fullfilled', 'Backorder', 'Cancelled'))
+);
+
+(a)
+INSERT INTO sales_man (salesman_no, s_name, place, phone)
+VALUES (1, 'John Doe', 'New York', '1234567890'),
+       (2, 'Jane Smith', 'London', '9876543210');
+INSERT INTO sales_order (order_no, order_date, salesman_no, del_type, order_status)
+VALUES (1001, '2023-06-01', 1, 'P', 'Inprocess'),
+       (1002, '2023-06-02', 2, 'F', 'Fullfilled');
+
+(b)
+ALTER TABLE sales_man
+DROP CONSTRAINT sales_man_pkey CASCADE;
+
+(c)
+ALTER TABLE sales_order
+DROP CONSTRAINT chk_del_type,
+DROP CONSTRAINT chk_order_status;
+
+(d)
+ALTER TABLE sales_man
+ADD PRIMARY KEY (salesman_no);
+
+(e)
+ALTER TABLE sales_order
+ADD CONSTRAINT sales_order_salesman_no_fkey FOREIGN KEY (salesman_no) REFERENCES sales_man(salesman_no),
+ADD CONSTRAINT chk_del_type CHECK (del_type IN ('P', 'F')),
+ADD CONSTRAINT chk_order_status CHECK (order_status IN ('Inprocess', 'Fullfilled', 'Backorder', 'Cancelled'));
+
+
+====================================================
+
+----------------------------------------------------
+     Table Design :
+----------------------------------------------------
+sales_man:
+                       Table "public.sales_man"
+   Column        |          Type                      | Collation | Nullable | Default
+-------------+------------------------+-----------+----------+---------
+ salesman_no | integer                           |               | not null |
+ s_name          | character varying(255) |               | not null |
+ place              | character varying(255) |                |             |
+ phone             | character varying(255) |                |             |
+Indexes:
+    "sales_man_pkey" PRIMARY KEY, btree (salesman_no)
+    "sales_man_phone_key" UNIQUE CONSTRAINT, btree (phone)
+Referenced by:
+    TABLE "sales_order" CONSTRAINT "sales_order_salesman_no_fkey" FOREIGN KEY (salesman_no) REFERENCES sales_man(salesman_no)
+
+sales_order:
+                       Table "public.sales_order"
+    Column        |          Type                          | Collation    | Nullable    | Default
+--------------+------------------------+-----------+----------+---------
+ order_no         | integer                               |                   | not null |
+ order_date      | date                                   |                   | not null |
+ salesman_no  | integer                              |                  |                |
+ del_type          | character(1)                      |                   |                |
+ order_status   | character varying(255)   |                    |                |
+Indexes:
+    "sales_order_pkey" PRIMARY KEY, btree (order_no)
+Check constraints:
+    "chk_del_type" CHECK (del_type = ANY (ARRAY['P'::bpchar, 'F'::bpchar]))
+    "chk_order_status" CHECK (order_status::text = ANY (ARRAY['Inprocess'::character varying, 'Fullfilled'::character varying, 'Backorder'::character varying, 'Cancelled'::character varying]::text[]))
+Foreign-key constraints:
+    "sales_order_salesman_no_fkey" FOREIGN KEY (salesman_no) REFERENCES sales_man(salesman_no)
+
+(a)
+postgres=# SELECT * FROM sales_man;
+ salesman_no |   s_name   |  place   |   phone
+-------------+------------+----------+------------
+           1 | John Doe   | New York | 1234567890
+           2 | Jane Smith | London   | 9876543210
+(2 rows)
+
+
+postgres=# SELECT * FROM sales_order;
+ order_no | order_date | salesman_no | del_type | order_status
+----------+------------+-------------+----------+--------------
+     1001 | 2023-06-01 |           1 | P        | Inprocess
+     1002 | 2023-06-02 |           2 | F        | Fullfilled
+(2 rows)
+
+
+(b)
+postgres=# \d sales_man
+                       Table "public.sales_man"
+   Column    |          Type          | Collation | Nullable | Default
+-------------+------------------------+-----------+----------+---------
+ salesman_no | integer                |           | not null |
+ s_name      | character varying(255) |           | not null |
+ place       | character varying(255) |           |          |
+ phone       | character varying(255) |           |          |
+Indexes:
+    "sales_man_phone_key" UNIQUE CONSTRAINT, btree (phone)
+
+
+(c)
+postgres=# \d sales_order
+                       Table "public.sales_order"
+    Column    |          Type          | Collation | Nullable | Default
+--------------+------------------------+-----------+----------+---------
+ order_no     | integer                |           | not null |
+ order_date   | date                   |           | not null |
+ salesman_no  | integer                |           |          |
+ del_type     | character(1)           |           |          |
+ order_status | character varying(255) |           |          |
+Indexes:
+    "sales_order_pkey" PRIMARY KEY, btree (order_no)
+
+
+(d)
+postgres=# \d sales_man
+                       Table "public.sales_man"
+   Column    |          Type          | Collation | Nullable | Default
+-------------+------------------------+-----------+----------+---------
+ salesman_no | integer                |           | not null |
+ s_name      | character varying(255) |           | not null |
+ place       | character varying(255) |           |          |
+ phone       | character varying(255) |           |          |
+Indexes:
+    "sales_man_pkey" PRIMARY KEY, btree (salesman_no)
+    "sales_man_phone_key" UNIQUE CONSTRAINT, btree (phone)
+
+(e)
+postgres=# \d sales_order
+                       Table "public.sales_order"
+    Column    |          Type          | Collation | Nullable | Default
+--------------+------------------------+-----------+----------+---------
+ order_no     | integer                |           | not null |
+ order_date   | date                   |           | not null |
+ salesman_no  | integer                |           |          |
+ del_type     | character(1)           |           |          |
+ order_status | character varying(255) |           |          |
+Indexes:
+    "sales_order_pkey" PRIMARY KEY, btree (order_no)
+Check constraints:
+    "chk_del_type" CHECK (del_type = ANY (ARRAY['P'::bpchar, 'F'::bpchar]))
+    "chk_order_status" CHECK (order_status::text = ANY (ARRAY['Inprocess'::character varying, 'Fullfilled'::character varying, 'Backorder'::character varying, 'Cancelled'::character varying]::text[]))
+Foreign-key constraints:
+    "sales_order_salesman_no_fkey" FOREIGN KEY (salesman_no) REFERENCES sales_man(salesman_no)
+

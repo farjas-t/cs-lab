@@ -1,0 +1,86 @@
+----------------------------------------------------
+     Queries :
+----------------------------------------------------
+
+-- Create exam_result table
+CREATE TABLE exam_result (
+    rollno INT,
+    avg_score NUMERIC,
+    Grade VARCHAR(1)
+);
+
+-- Insert 10 records with NULL values for Grade
+INSERT INTO exam_result (rollno, avg_score, Grade)
+VALUES
+    (1, 95, NULL),
+    (2, 80, NULL),
+    (3, 70, NULL),
+    (4, 85, NULL),
+    (5, 60, NULL),
+    (6, 92, NULL),
+    (7, 45, NULL),
+    (8, 78, NULL),
+    (9, 88, NULL),
+    (10, 65, NULL);
+
+DO $$
+BEGIN
+    UPDATE exam_result
+    SET Grade = CASE
+        WHEN avg_score BETWEEN 90 AND 100 THEN 'A'
+        WHEN avg_score BETWEEN 75 AND 89 THEN 'B'
+        WHEN avg_score BETWEEN 60 AND 74 THEN 'C'
+        WHEN avg_score BETWEEN 50 AND 59 THEN 'D'
+        ELSE 'E'
+    END;
+END $$;
+
+SELECT * FROM exam_result;
+
+
+
+====================================================
+
+----------------------------------------------------
+     Table Design :
+----------------------------------------------------
+
+exam_result :
+
+  Column   |         Type         | Collation | Nullable | Default
+-----------+----------------------+-----------+----------+---------
+ rollno    | integer              |           |          |
+ avg_score | numeric              |           |          |
+ grade     | character varying(1) |           |          |
+
+
+ rollno | avg_score | grade
+--------+-----------+-------
+      1 |        95 |
+      2 |        80 |
+      3 |        70 |
+      4 |        85 |
+      5 |        60 |
+      6 |        92 |
+      7 |        45 |
+      8 |        78 |
+      9 |        88 |
+     10 |        65 |
+
+ rollno | avg_score | grade
+--------+-----------+-------
+      1 |        95 | A
+      2 |        80 | B
+      3 |        70 | C
+      4 |        85 | B
+      5 |        60 | C
+      6 |        92 | A
+      7 |        45 | E
+      8 |        78 | B
+      9 |        88 | B
+     10 |        65 | C
+
+
+
+
+
