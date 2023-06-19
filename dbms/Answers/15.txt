@@ -1,0 +1,69 @@
+----------------------------------------------------
+     Queries :
+----------------------------------------------------
+
+CREATE TABLE stud_mark (
+    regno INTEGER PRIMARY KEY,
+    sname VARCHAR(50),
+    avg_mark FLOAT
+);
+
+INSERT INTO stud_mark (regno, sname, avg_mark) VALUES
+(1, 'Farjas', 85),
+(2, 'Anulal', 95),
+(3, 'Salih', 90),
+(4, 'Fasal', 63),
+(5, 'Neeraj', 55),
+(6, 'Farzana', 78),
+(7, 'Sahla', 98),
+(8, 'Shiya', 43);
+
+CREATE OR REPLACE FUNCTION display_student_grades()
+RETURNS TABLE (
+    distinction INTEGER,
+    first_class INTEGER,
+    second_class INTEGER,
+    third_class INTEGER,
+    failed INTEGER
+) AS $$
+BEGIN
+    SELECT COUNT(*) FILTER (WHERE avg_mark BETWEEN 90 AND 100) AS distinction,
+           COUNT(*) FILTER (WHERE avg_mark BETWEEN 75 AND 89) AS first_class,
+           COUNT(*) FILTER (WHERE avg_mark BETWEEN 60 AND 74) AS second_class,
+           COUNT(*) FILTER (WHERE avg_mark BETWEEN 50 AND 59) AS third_class,
+           COUNT(*) FILTER (WHERE avg_mark < 50) AS failed
+    FROM stud_mark
+    INTO distinction, first_class, second_class, third_class, failed;
+
+    RETURN NEXT;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT * FROM display_student_grades();
+
+----------------------------------------------------
+     Table Design :
+----------------------------------------------------
+
+CREATE TABLE : stud_mark
+
+  Column     |         Type         		| Size 	| Constraint
+---------- +-----------------------	+-----	+----------+---------
+ regno         | integer               	|           	|  Primary Key
+ sname       | character varying(50) 	|           	|          
+ avg_mark  | double precision      	|           	|          
+
+ regno 	|  sname  | avg_mark
+-------	+-------	+----------
+     1 	| Farjas  	|       85
+     2 	| Anulal  	|       95
+     3 	| Salih   	|       90
+     4 	| Fasal   	|       63
+     5 	| Neeraj  	|       55
+     6 	| Farzana	|       78
+     7 	| Sahla  	|       98
+     8 	| Shiya   	|       43
+
+ distinction     | first_class | second_class | third_class | failed
+-------------+-------------+--------------+-------------+--------
+           3 	       |           2        |            1          |           1        |      1
