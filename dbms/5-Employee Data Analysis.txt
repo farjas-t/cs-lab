@@ -1,0 +1,35 @@
+
+CREATE TABLE employee (empID INT PRIMARY KEY, ename varchar(20), salary INT, department varchar(20), age INT);
+
+INSERT INTO employee VALUES
+(100,'David',55000,'Management',35),
+(101,'Abu',25000,'Management',25),
+(102,'Shibu',45000,'Purchase',40),
+(103,'Shambu',35000,'Purchase',27),
+(104,'Peter',35000,'Sales',30),
+(105,'George',40000,'Sales',35);
+
+
+(a)
+SELECT COUNT(*) FROM employee;
+
+(b)
+SELECT department, MAX(age) FROM employee GROUP BY department;
+
+(c)
+SELECT department, AVG(age) FROM employee GROUP BY department;
+ 
+(d)
+SELECT department, AVG(salary) FROM employee GROUP BY department;
+
+(e)
+SELECT MIN(salary) FROM employee;
+
+(f)
+SELECT COUNT(*) FROM employee WHERE department='Purchase';
+
+(g)
+SELECT MAX(Salary) FROM employee WHERE department='Sales';
+
+(h)
+SELECT MAX(Salary) - MIN(Salary) as salary_range FROM employee;

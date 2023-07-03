@@ -1,0 +1,72 @@
+CREATE TABLE Bank_customer (
+     accno varchar(10) PRIMARY KEY,
+     cust_name varchar(50),
+     place varchar(50)
+     );
+
+
+CREATE TABLE Deposit (
+     accno varchar(10) REFERENCES Bank_customer(accno),
+     deposit_no varchar(10),
+     damount decimal(10,2)
+     );
+
+
+CREATE TABLE Loan (
+     accno varchar(10) REFERENCES Bank_customer(accno),
+     loan_no varchar(10),
+     Lamount decimal(10,2)
+     );
+
+
+INSERT INTO Bank_customer VALUES 
+    ('A001', 'Farjaz', 'Karanthur'),
+    ('A002', 'Salih', 'Mavoor'),
+    ('A003', 'Fazal', 'Elathoor')
+    ('A004','Fajr','Kunnamangalam');
+
+postgres=# INSERT INTO Deposit VALUES
+    ('A001', 'D001', 5000),
+    ('A002', 'D002', 10000),
+    ('A003', 'D003', 15000),
+    ('A001', 'D004', 7000),
+    ('A001', 'D005', 3000);
+
+postgres=# INSERT INTO Loan VALUES
+    ('A001', 'L001', 20000),
+    ('A002', 'L002', 50000),
+    ('A003', 'L003', 10000),
+    ('A002', 'L004', 75000);
+
+(a)
+SELECT * FROM Bank_customer;
+
+(b)
+SELECT b.accno, b.cust_name, b.place, d.damount
+    FROM Bank_customer b
+    INNER JOIN Deposit d ON b.accno = d.accno
+    LEFT JOIN Loan l ON b.accno = l.accno
+    WHERE l.accno IS NULL;
+
+(c)
+SELECT b.accno, b.cust_name, b.place, l.Lamount
+    FROM Bank_customer b
+    INNER JOIN Loan l ON b.accno = l.accno
+    LEFT JOIN Deposit d ON b.accno = d.accno
+    WHERE d.accno IS NULL;
+
+(d)
+SELECT b.accno, b.cust_name, b.place, d.damount, l.Lamount
+    FROM Bank_customer b
+    INNER JOIN Deposit d ON b.accno = d.accno
+    INNER JOIN Loan l ON b.accno = l.accno;
+
+(e)
+SELECT b.accno, b.cust_name, b.place
+    FROM Bank_customer b
+    LEFT JOIN Deposit d ON b.accno = d.accno
+    LEFT JOIN Loan l ON b.accno = l.accno
+    WHERE d.accno IS NULL AND l.accno IS NULL;
+
+
+

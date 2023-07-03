@@ -1,0 +1,48 @@
+
+CREATE TABLE product (
+    prod_code INT PRIMARY KEY,
+    prod_name VARCHAR(20),
+    category VARCHAR(20),
+    quantity INT,
+    price NUMERIC(10,2)
+);
+
+INSERT INTO product (prod_code, prod_name, category, quantity, price)
+VALUES
+  (1, 'Toothpaste', 'paste', 150, 25.00),
+  (2, 'Shampoo', 'haircare', 200, 40.00),
+  (3, 'Bath Soap', 'bathsoap', 100, 15.00),
+  (4, 'Washing Powder', 'washingpowder', 300, 30.00),
+  (5, 'Handwash', 'washing product', 50, 10.00),
+  (6, 'Conditioner', 'haircare', 80, 50.00),
+  (7, 'Deodorant', 'perfume', 250, 20.00);
+
+
+(a)
+SELECT * FROM product
+ORDER BY prod_name DESC;
+
+(b)
+SELECT prod_code, prod_name FROM product
+WHERE price BETWEEN 20 AND 50;
+
+(c)
+SELECT prod_name, price FROM product
+WHERE category IN ('bathsoap', 'paste', 'washingpowder');
+
+(d)
+SELECT * FROM product
+WHERE quantity < 100 OR quantity > 500;
+
+(e)
+SELECT prod_name FROM product
+WHERE prod_name LIKE 's%';
+
+(f)
+SELECT prod_name FROM product
+WHERE category != 'paste';
+
+(g)
+SELECT prod_name FROM product
+WHERE prod_name LIKE '_u%' AND category = 'washing product';
+

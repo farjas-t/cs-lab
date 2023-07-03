@@ -1,0 +1,28 @@
+CREATE TABLE customer (cust_no varchar(5), cust_name varchar(15), age smallint, phone varchar(10));
+
+(a)
+INSERT INTO customer VALUES (101,'George',30,9347851238),(102,'Shambu',27,6325741985),(103,'David',34,9426874621),(104,'Shibu',25,8432569714),(105,'Lolan',22,7251486327);
+
+(b)
+ALTER TABLE customer ADD d_birth date;
+
+(c)
+CREATE TABLE cust_phone AS SELECT cust_name,phone FROM customer;
+
+(d)
+ALTER TABLE customer DROP COLUMN age;
+
+(e)
+ALTER TABLE customer ALTER COLUMN cust_name TYPE VARCHAR(25);
+
+(f)
+DELETE FROM customer;
+
+(g)
+ALTER TABLE customer RENAME TO cust;
+
+(h)
+DROP TABLE cust;
+
+
+

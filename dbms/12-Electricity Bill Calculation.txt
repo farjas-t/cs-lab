@@ -1,0 +1,63 @@
+----------------------------------------------------
+     Queries :
+----------------------------------------------------
+
+CREATE TABLE customer_bills (
+    bill_id SERIAL PRIMARY KEY,
+    cust_no INTEGER,
+    units_consumed INTEGER,
+    amount_due NUMERIC(10,2)
+);
+
+-- Function to calculate the electricity bill
+CREATE OR REPLACE FUNCTION calculate_bill(
+    p_cust_no INTEGER,
+    p_units_consumed INTEGER
+)
+RETURNS NUMERIC(10,2)
+AS $$
+DECLARE
+    v_amount_due NUMERIC(10,2);
+BEGIN
+    v_amount_due := p_units_consumed * 5.50;
+    INSERT INTO customer_bills (cust_no, units_consumed, amount_due)
+    VALUES (p_cust_no, p_units_consumed, v_amount_due);
+    RETURN v_amount_due;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT calculate_bill(1001, 50) AS bill_amount;
+SELECT calculate_bill(1002, 150) AS bill_amount;
+SELECT calculate_bill(1003, 100) AS bill_amount;
+
+SELECT * FROM electricity_bill;
+
+
+
+====================================================
+
+----------------------------------------------------
+     Table Design :
+----------------------------------------------------
+
+customer_bills : 
+
+     Column    	|     Type      	| Collation | Nullable |                     Default
+----------------	+---------------	+-----------+----------+-------------------------------------------------
+ bill_id        	| integer       	|           	| not null | nextval('customer_bills_bill_id_seq'::regclass)
+ cust_no        	| integer       	|           	|          	|
+ units_consumed 	| integer       	|           	|          	|
+ amount_due     	| numeric(10,2) 	|           	|         	|
+Indexes:
+    "customer_bills_pkey" PRIMARY KEY, btree (bill_id)
+
+
+ bill_id | cust_no | units_consumed | amount_due
+---------+---------+----------------+------------
+       1 |    1001 |             50 |     275.00
+       2 |    1002 |            150 |     825.00
+       3 |    1003 |            100 |     550.00
+
+
+
+

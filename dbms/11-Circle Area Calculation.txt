@@ -1,0 +1,41 @@
+----------------------------------------------------
+     Queries :
+----------------------------------------------------
+
+do $$
+declare
+r integer;
+ar numeric(10,2);
+pi constant float:=3.14;
+begin
+create table areas(radius integer,area numeric);
+r:=3;
+While r<=7
+loop
+ar:=pi*power(r,2);
+insert into areas values (r,ar);
+r=r+1;
+end loop;
+end$$;
+
+SELECT * FROM areas;
+
+
+====================================================
+
+----------------------------------------------------
+     Table Design :
+----------------------------------------------------
+
+areas :
+
+ radius |    area
+--------+----------
+      3 | 28.274334
+      4 | 50.265484
+      5 | 78.539816
+      6 | 113.09734
+      7 | 153.93804
+
+
+

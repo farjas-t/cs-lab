@@ -1,0 +1,89 @@
+
+----------------------------------------------------
+     Queries :
+----------------------------------------------------
+
+CREATE TABLE phonebook (
+  pname VARCHAR(100),
+  mobno VARCHAR(20)
+);
+
+CREATE TABLE del_phonebook (
+  pname VARCHAR(100),
+  mobno VARCHAR(20),
+  modfy_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE OR REPLACE FUNCTION phonebook_trigger_function()
+  RETURNS TRIGGER AS $$
+BEGIN
+  IF TG_OP = 'DELETE' OR TG_OP = 'UPDATE' THEN
+    INSERT INTO del_phonebook (pname, mobno, modfy_date)
+    VALUES (OLD.pname, OLD.mobno, CURRENT_TIMESTAMP);
+  END IF;
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER phonebook_trigger
+AFTER DELETE OR UPDATE ON phonebook
+FOR EACH ROW
+EXECUTE PROCEDURE phonebook_trigger_function();
+
+
+INSERT INTO phonebook (pname, mobno)
+VALUES
+  ('Shibu', '5551234567'),
+  ('Shambu', '5559876543'),
+  ('George', '5551112222');
+  ('David', '5551112222');
+
+SELECT * FROM phonebook;
+
+DELETE FROM phonebook 
+WHERE pname IN ('Shibu', 'Shambu');
+
+SELECT * FROM phonebook;
+
+SELECT * FROM del_phonebook;
+
+----------------------------------------------------
+     Table Design :
+----------------------------------------------------
+
+CREATE TABLE : phonebook
+
+ Column |     Type           | Size |  Constraint
+--------+-------------+-----+---------------
+ pname  | VARCHAR      |  100  |         
+ mobno  | VARCHAR       |  20   |       
+
+
+CREATE TABLE : del_phonebook
+ Column       |     Type           | Size |  Constraint
+--------+-------------+-----+---------------
+ pname        | VARCHAR      |  100  |         
+ mobno        | VARCHAR       |  20   |       
+modify_date | timestamp     |         |   Default
+
+INSERT 0 4 : phonebook :
+ pname  |   mobno
+--------+------------
+ Shibu  | 5551234567
+ Shambu | 5559876543
+ George | 5551112222
+ David  | 5551112222
+
+
+DELETE 2 : phonebook :
+ pname  |   mobno
+--------+------------
+ George | 5551112222
+ David  | 5551112222
+
+del_phonebook :
+pname  |   mobno    |         modfy_date
+--------+------------+----------------------------
+ Shibu  | 5551234567 | 2023-06-19 15:35:07.864593
+ Shambu | 5559876543 | 2023-06-19 15:35:07.864593
+
