@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>number</title>
+</head>
+
+<body>
+    <h1>Number checking</h1>
+
+    <form action="">
+        <br>
+        <input type="number" id="number" placeholder="Enter ur number" style="padding: 4px ;">
+        <input type="submit" value="submit" id="btn" style="padding: 4px 10px;">
+    </form>
+
+    <h1>number is <span></span></h1>
+
+    <script>
+
+        const number = document.querySelector("#number")
+        const btn = document.querySelector("#btn")
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const num = +number.value
+
+            let sum = 0;
+            for (let i = 0; i < num; i++) {
+                if (num % i == 0) {
+                    sum += i;
+                }
+            }
+
+            if (sum == num)
+                document.querySelector("h1 span").textContent = "perfect"
+            else if (sum > num)
+                document.querySelector("h1 span").textContent = "abudent"
+            else document.querySelector("h1 span").textContent = "deficient"
+        })
+
+    </script>
+
+
+
+
+</body>
+
+</html>

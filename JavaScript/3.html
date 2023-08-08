@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Triangle Checker</title>
+</head>
+<body>
+  <h2>Triangle Checker</h2>
+
+  <script>
+    function isTriangle(a, b, c) {
+      return a + b > c && b + c > a && c + a > b;
+    }
+
+    function getType(a, b, c) {
+      if (a === b && b === c) {
+        return "Equilateral";
+      } else if (a === b || b === c || c === a) {
+        return "Isosceles";
+      } else {
+        return "Scalene";
+      }
+    }
+
+    function calculateArea(a, b, c) {
+      const s = (a + b + c) / 2;
+      return Math.sqrt(s * (s - a) * (s - b) * (s - c));
+    }
+
+    function main() {
+      const side1 = parseFloat(prompt("Enter the length of side 1:"));
+      const side2 = parseFloat(prompt("Enter the length of side 2:"));
+      const side3 = parseFloat(prompt("Enter the length of side 3:"));
+
+      if (isNaN(side1) || isNaN(side2) || isNaN(side3)) {
+        document.body.innerHTML =
+          "<p>Invalid input. Please enter valid side lengths.</p>";
+        return;
+      }
+
+      if (isTriangle(side1, side2, side3)) {
+        const type = getType(side1, side2, side3);
+        const area = calculateArea(side1, side2, side3);
+
+        document.body.innerHTML = `
+          <p>The given sides can form a ${type} triangle.</p>
+          <p>Area: ${area.toFixed(2)}</p>
+        `;
+      } else {
+        document.body.innerHTML = "<p>The given sides cannot form a triangle.</p>";
+      }
+    }
+
+    main();
+  </script>
+</body>
+</html>
