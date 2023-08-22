@@ -1,27 +1,19 @@
+
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Multiplication Table</title>
-</head>
 <body>
     <h1>Multiplication Table</h1>
-    
     <label for="number">Enter a number:</label>
     <input type="number" id="number" />
-    
     <label for="limit">Enter the limit:</label>
     <input type="number" id="limit" />
-    
     <button onclick="displayTable()">Display Table</button>
-    
     <div id="table"></div>
-    
     <script>
         function displayTable() {
             const number = parseInt(document.getElementById("number").value);
             const limit = parseInt(document.getElementById("limit").value);
             const tableDiv = document.getElementById("table");
-            
             if (isNaN(number) || isNaN(limit)) {
                 tableDiv.innerHTML = "<p>Please enter valid numbers.</p>";
             } else {

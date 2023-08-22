@@ -1,0 +1,25 @@
+<!--
+    1. Write a JavaScript program to perform find the area and circumference of a circle
+-->
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            function Calc()
+            {
+                var r=parseFloat(document.getElementById ("Radius").value);
+                document.getElementById ("Area").innerText=3.14*r*r;
+                document.getElementById ("Circum").innerText=3.14*2*r;
+            }
+        </script>
+        <h1>Circle Area & Circumference Calculator</h1>
+        <h3>Enter the radius</h3>
+        <input type="text" id="Radius">
+        <button onclick="Calc()">Calculate </button>
+        <br><br>
+        <h3>
+        Area : <span id="Area"></span><br><br>
+        circumference : <span id="Circum"></span>
+        </h3> 
+    </body>
+</html>

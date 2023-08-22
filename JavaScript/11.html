@@ -1,0 +1,21 @@
+<html>
+<body>
+    <input type="text" id="input" value="malayalam">
+    <button id="btn">submit</button>
+    <script>
+        document.getElementById("btn").addEventListener("click", (e) => {
+            const string = document.getElementById("input").value
+            var stringReverse = ''
+            for (let i = 1; i <= string.length  ; i++) {
+                stringReverse += string[string.length - i]
+            }
+            if (string === stringReverse) {
+                alert("palidrome")
+            } else {
+                alert("not palidrome")
+            }
+        })
+    </script>
+</body>
+
+</html>

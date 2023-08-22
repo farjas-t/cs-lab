@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+</head>
+<body>
+    <form>
+        <input type="email" placeholder="Enter your email" required id="email">
+        <input type="submit" value="submit">
+        <br>
+        <span id="message" style="color: red;"></span>
+    </form>
+    <script>
+        const email = document.getElementById("email");
+        const message = document.getElementById("message");
+        const submitButton = document.querySelector("input[type='submit']");
+        submitButton.onclick = function() {
+            const value = email.value;
+            if (value.includes("@") && value.includes(".")) {
+                const [username, domain] = value.split("@");
+                if (username.length >= 1 && domain.length >= 1) {
+                    const [, topLevelDomain] = domain.split(".");
+                    if (topLevelDomain.length >= 2) {
+                        message.style.color = "green";
+                        message.textContent = "Works fine";
+                    } else {
+                        message.style.color = "red";
+                        message.textContent = "Email must have at least 2 characters after '.'";
+                    }
+                } else {
+                    message.style.color = "red";
+                    message.textContent = "There must be at least one character before and after '@'";
+                }
+            } else if (!value.includes("@")) {
+                message.style.color = "red";
+                message.textContent = "Email must contain '@'";
+            } else if (!value.includes(".")) {
+                message.style.color = "red";
+                message.textContent = "Email must contain '.'";
+            }
+            return false;
+        };
+    </script>
+</body>
+</html>

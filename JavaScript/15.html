@@ -1,0 +1,31 @@
+<html>
+<body>
+    Enter a year range : <br>
+    <input type="number" id="start">
+    <input type="number" id="end"><br>
+    <button onclick="check()">Check</button><br><br>
+    <h4 id="txt"></h4>
+    <ul>
+        <div id="list"></div>
+    </ul>
+    <script>
+        function check(){
+            var start = document.getElementById("start").value;
+            var end = document.getElementById("end").value;
+            document.getElementById("txt").innerHTML="Years 1st January is being a Sunday : ";
+            var text = "";
+            for (var year = start; year <= end; year++)
+            {
+                var d = new Date(year, 0, 1);
+                if ( d.getDay() === 0 )
+                text += "<li>" + year + "</li>";
+                
+            }
+
+            document.getElementById("list").innerHTML=text
+        }
+    </script>
+
+    
+</body>
+</html>
