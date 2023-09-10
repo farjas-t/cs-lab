@@ -3,9 +3,6 @@ public class CountObjects {
     public CountObjects(){
         count+=1;
     }
-    public CountObjects(int i){
-        count+=1;
-    }
     public static void main(String[] args) {
         CountObjects obj1 = new CountObjects();
         CountObjects obj2 = new CountObjects(9);
