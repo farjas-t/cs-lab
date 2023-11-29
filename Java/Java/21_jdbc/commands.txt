@@ -1,0 +1,16 @@
+show databases;
+
+create database javadb;
+
+use javadb;
+
+create table employee (id int(10),name varchar(20),design varchar(20),dept varchar(20));  
+
+
+INSERT INTO employee(id,name,design,dept) VALUES 
+(101, "Basheer", "Assistant Professor", "Computer Science"),
+(102, "Beena Cheriyan", "Associate Professor", "Computer Science"),
+(102, "Akshay Radhakrishnan", "Lab Assistant", "Computer Science"),
+(103, "Shibu", "Assistant Professor", "Mathematics");
+
+SELECT * FROM employee;
