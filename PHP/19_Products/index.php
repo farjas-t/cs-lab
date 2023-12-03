@@ -29,7 +29,7 @@ $result = pg_query($con, $querySelect);
 
 <html>
     <body>
-        <table>
+        <table border="1" cellspacing="0">
             <tr>
                 <th>Item Code</th>
                 <th>Item Name</th>
