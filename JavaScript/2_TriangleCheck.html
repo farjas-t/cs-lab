@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      const a = parseFloat(prompt("Enter the length of side 1:"));
+      const b = parseFloat(prompt("Enter the length of side 2:"));
+      const c = parseFloat(prompt("Enter the length of side 3:"));
+      if (a + b > c && b + c > a && c + a > b) {
+        if (a === b && b === c) {
+          var type = "Equilateral";
+        } else if (a === b || b === c || c === a) {
+          var type = "Isosceles";
+        } else {
+          var type = "Scalene";
+        }
+        const s = (a + b + c) / 2;
+        const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+        document.body.innerHTML = `
+          <p>The given sides can form a ${type} triangle.</p>
+          <p>Area: ${area}</p>
+        `;
+      } else {
+        document.body.innerHTML =
+          "<p>The given sides cannot form a triangle.</p>";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Perfect Abundant Defficient Check</h1>
+    <form>
+      <input type="number" id="input" placeholder="Enter ur number" />
+      <input type="button" value="submit" onclick="check()" />
+    </form>
+    <h2 id="output"></h2>
+    <script>
+      function check() {
+        var num = document.getElementById("input").value;
+        let sum = 0;
+        for (let i = 0; i < num; i++) {
+          if (num % i == 0) {
+            sum += i;
+          }
+        }
+        if (sum == num)
+          document.getElementById("output").innerHTML = "Number is Perfect";
+        else if (sum > num)
+          document.getElementById("output").innerHTML = "Number is Abudent";
+        else
+          document.getElementById("output").innerHTML = "Number is Deficient";
+      }
+    </script>
+  </body>
+</html>
