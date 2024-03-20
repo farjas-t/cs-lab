@@ -24,9 +24,7 @@ if ($_POST) {
     $rg = $_POST['txtreg'];
     $qry = "SELECT * from student WHERE regno='$rg'";
     $result = pg_query($con, $qry);
-    $nos = pg_num_rows($result);
     while ($row = pg_fetch_row($result)) {
-        echo "<br>\n";
         echo " rollno: $row[0]<br> name: $row[1]<br> mark: $row[2]<br> grade: $row[3]";
     }
 }

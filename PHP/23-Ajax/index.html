@@ -12,10 +12,9 @@
     <script>
         function generateTable() {
             var number = document.getElementById("numberInput").value;
-            var limit = 10; 
             var outputDiv = document.getElementById("tableOutput");
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "multiplication.php?number=" + number + "&limit=" + limit, true);
+            xhr.open("GET", "multiplication.php?number=" + number, true);
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {

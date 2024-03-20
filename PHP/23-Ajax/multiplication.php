@@ -1,9 +1,8 @@
 <?php
 if (isset($_GET['number'])) {
     $number = intval($_GET['number']);
-    $limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
     $table = '';
-    for ($i = 1; $i <= $limit; $i++) {
+    for ($i = 1; $i <= 10; $i++) {
         $result = $number * $i;
         $table .= "$number x $i = $result<br>";
     }
