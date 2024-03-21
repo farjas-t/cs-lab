@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="116dp"
-        android:text="@string/btntxt" 
+        android:layout_marginTop="106dp"
+        android:text="Show Toast"
         android:onClick="toast" />
 
 </RelativeLayout>

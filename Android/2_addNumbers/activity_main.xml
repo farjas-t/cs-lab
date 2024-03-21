@@ -8,47 +8,45 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-        <EditText
+    <EditText
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="31dp"
-        android:layout_marginTop="29dp"
-        android:ems="10" 
-        android:inputType="number" >
- 
-        <requestFocus />
-    </EditText>
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="Enter Number 1" />
+    
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/EditText01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
         android:layout_below="@+id/editText1"
-        android:layout_marginTop="24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
         android:ems="10"
-        android:inputType="number"  />
+        android:hint="Enter Number 2"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/EditText01"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="@string/btntxt" 
-        android:onClick="add" />
+        android:text="Add"
+        android:onClick="addnums" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="40dp" />
+
 </RelativeLayout>

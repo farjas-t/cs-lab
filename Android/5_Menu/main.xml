@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item 
+	        android:id="@+id/Sample"
+	        android:title=":"
+	        android:orderInCategory="100"
+	        android:showAsAction="always">
+	    <menu>
+	    <item 
+	        android:id="@+id/New"
+	        android:title="New"
+	        android:orderInCategory="100"
+	        android:showAsAction="always"/>
+	    <item 
+	        android:id="@+id/open"
+	        android:title="Open"
+	        android:orderInCategory="101"
+	        android:showAsAction="always"/>
+	    <item 
+	        android:id="@+id/exit"
+	        android:title="Exit"
+	        android:orderInCategory="102"
+	        android:showAsAction="always"/>
+	    </menu>    
+	</item>
+</menu>

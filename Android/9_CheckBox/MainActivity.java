@@ -1,32 +1,32 @@
-package com.mamo.radiobutton;
+package com.mamo.checkbox;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	RadioGroup rg;
-	Button but ;
+	CheckBox a,b,c,d;
+	Button bt;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        but = (Button) findViewById ( R.id.button1 );
-        rg = (RadioGroup)findViewById (R.id.Gender);
-        but.setOnClickListener(new View.OnClickListener() {
+        a=(CheckBox)findViewById(R.id.checkBox1);
+        b=(CheckBox)findViewById(R.id.checkBox2);
+        c=(CheckBox)findViewById(R.id.checkBox3);
+        d=(CheckBox)findViewById(R.id.checkBox4);
+        bt=(Button)findViewById(R.id.button1);
+        bt.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				int selected = rg . getCheckedRadioButtonId () ;
-				RadioButton radio = (RadioButton) findViewById ( selected ) ;
-				Toast . makeText ( MainActivity . this , " You selected : "+ radio . getText
-				() , Toast . LENGTH_LONG ) . show () ;
-				
+				String res="Ice cream:"+a.isChecked()+"\nChoco Bar:"+b.isChecked()+"\nMango Bar:"+c.isChecked()+"\nGrape Bar:"+d.isChecked();
+				Toast.makeText(MainActivity.this,res, Toast.LENGTH_LONG).show();
 			}
 		});
     }

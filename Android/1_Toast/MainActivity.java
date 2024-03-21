@@ -1,4 +1,4 @@
-package com.example.toast;
+package com.mamo.toast;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -13,10 +13,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
+    
     public void toast(View v){
-    	Toast.makeText(getApplicationContext(),"Hello World!",Toast.LENGTH_SHORT).show();  
+    	Toast.makeText(this.getApplicationContext(), "Hello World", Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
